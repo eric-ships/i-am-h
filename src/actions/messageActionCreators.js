@@ -1,4 +1,4 @@
-let nextMessageId = 0
+let nextMessageId = 1
 
 export const addMessage = (text) => {
   return {

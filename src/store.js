@@ -2,9 +2,9 @@ import { createStore } from 'redux'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import rootReducer from './reducers/index'
+import rootReducer from './reducers/rootReducer'
 
-const defaultState = {
+const initialState = {
   messages: [
     {
       id: 0,
@@ -12,7 +12,8 @@ const defaultState = {
     }
   ]
 }
-const store = createStore(rootReducer, defaultState)
+const store = createStore(rootReducer, initialState, window.devToolsExtension && window.devToolsExtension()
+)
 const history = syncHistoryWithStore(browserHistory, store)
 
 export { store as default, history }

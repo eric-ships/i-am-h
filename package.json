@@ -41,5 +41,8 @@
     "clean": "rm -rf dist",
     "dev": "node devServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apiai": "^2.0.5"
   }
 }
