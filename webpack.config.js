@@ -34,6 +34,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
-    root: path.resolve('./src')
+    root: path.join(__dirname, 'src')
   }
 }
