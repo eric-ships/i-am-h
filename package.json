@@ -41,6 +41,7 @@
     "build": "npm run clean && webpack",
     "clean": "rm -rf dist",
     "dev": "node devServer.js",
+    "start": "node devServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
