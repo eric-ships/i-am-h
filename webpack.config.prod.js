@@ -3,17 +3,14 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    'webpack-hot-middleware/client?reload=true&path=http://localhost:7770/__webpack_hmr',
-    path.join(__dirname, 'src/index.js')
-  ],
+  entry: path.join(__dirname, 'src/index.js'),
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    // add plugins for prod
   ],
   module: {
     loaders: [
@@ -27,13 +24,13 @@ module.exports = {
       },
       {
         test: /.jsx?$/,
-        loader: 'react-hot!babel!eslint',
+        loader: 'babel',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
-    root: path.join(__dirname, 'src')
+    root: path.resolve('src')
   }
 }
