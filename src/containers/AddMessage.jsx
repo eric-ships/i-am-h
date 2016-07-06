@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addMessage } from 'actions/messageActionCreators'
+import { addMessageWithApiai } from 'actions/messageActionCreators'
 
 import styles from 'styles/add-message'
 
@@ -12,7 +12,7 @@ let AddMessage = ({ dispatch }) => {
     if (!input.value.trim()) {
       return
     }
-    dispatch(addMessage(input.value))
+    dispatch(addMessageWithApiai(input.value))
     input.value = ''
   }
 
@@ -23,7 +23,7 @@ let AddMessage = ({ dispatch }) => {
           input = node
         }} />
         <button className={styles.button} type="submit">
-          Respond
+          Chat
         </button>
       </form>
     </div>

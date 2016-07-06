@@ -3,9 +3,10 @@ import CSSModules from 'react-css-modules'
 import styles from 'styles/messages-list'
 
 const MessagesList = ({ messages }) => (
+
   <ul>
     {messages.map((message, i) =>
-      <li key={i} styleName='message'>
+      <li key={i} styleName={message.fromUser ? 'message--from-user' : 'message'}>
         {message.text}
       </li>
     )}

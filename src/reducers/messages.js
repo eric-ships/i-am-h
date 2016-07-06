@@ -5,7 +5,8 @@ function messages(state = [], action) {
         ...state,
         {
           id: action.id,
-          text: action.text
+          text: action.text,
+          fromUser: action.fromUser
         }
       ]
     default:

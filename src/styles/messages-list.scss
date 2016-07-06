@@ -1,5 +1,16 @@
 .message {
   font-size: 18px;
   font-weight: 200;
+  margin: 0 auto 10px auto;
+  max-width: 480px;
+  text-align: center;
+}
+
+.message--from-user {
+  color: #7ac6ff;
+  font-size: 18px;
+  font-weight: 200;
+  margin: 0 auto 10px auto;
+  max-width: 480px;
   text-align: center;
 }
