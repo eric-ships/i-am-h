@@ -34532,7 +34532,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,400);", ""]);
 	
 	// module
-	exports.push([module.id, "body {\n  background-color: black;\n  color: white;\n  font-family: 'Assistant', sans-serif; }\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/page.scss"],"names":[],"mappings":"AAEA;EACE,wBAAwB;EACxB,aAAa;EACb,qCAAqC,EACtC;;AAED;EACE,UAAU;EACV,WAAW;EACX,sBAAsB,EACvB","file":"page.scss","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Assistant:200,400');\n\nbody {\n  background-color: black;\n  color: white;\n  font-family: 'Assistant', sans-serif;\n}\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  cursor: none; }\n\nbody {\n  background-color: black;\n  color: white;\n  font-family: 'Assistant', sans-serif; }\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/page.scss"],"names":[],"mappings":"AAEA;EACE,aAAa,EACd;;AAED;EACE,wBAAwB;EACxB,aAAa;EACb,qCAAqC,EACtC;;AAED;EACE,UAAU;EACV,WAAW;EACX,sBAAsB,EACvB","file":"page.scss","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Assistant:200,400');\n\n* {\n  cursor: none;\n}\n\nbody {\n  background-color: black;\n  color: white;\n  font-family: 'Assistant', sans-serif;\n}\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -34903,7 +34903,7 @@
 	        _react2.default.createElement(
 	          'h1',
 	          { styleName: 'title' },
-	          'Hi, I am H'
+	          'I am H'
 	        ),
 	        _react2.default.createElement(_Messages2.default, null),
 	        _react2.default.createElement(_AddMessage2.default, null)
@@ -35029,7 +35029,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".messages-list__message___d56e7 {\n  font-size: 18px;\n  font-weight: 200;\n  margin: 0 auto 10px auto;\n  max-width: 480px;\n  text-align: center; }\n\n.messages-list__message--from-user___N1zgs {\n  color: #7ac6ff;\n  font-size: 18px;\n  font-weight: 200;\n  margin: 0 auto 10px auto;\n  max-width: 480px;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/messages-list.scss"],"names":[],"mappings":"AAAA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,yBAAyB;EACzB,iBAAiB;EACjB,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,yBAAyB;EACzB,iBAAiB;EACjB,mBAAmB,EACpB","file":"messages-list.scss","sourcesContent":[".message {\n  font-size: 18px;\n  font-weight: 200;\n  margin: 0 auto 10px auto;\n  max-width: 480px;\n  text-align: center;\n}\n\n.message--from-user {\n  color: #7ac6ff;\n  font-size: 18px;\n  font-weight: 200;\n  margin: 0 auto 10px auto;\n  max-width: 480px;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".messages-list__message___d56e7 {\n  font-size: 16px;\n  font-weight: 200;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n\n.messages-list__message--from-user___N1zgs {\n  color: #7ac6ff;\n  font-size: 16px;\n  font-weight: 200;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/messages-list.scss"],"names":[],"mappings":"AAAA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"messages-list.scss","sourcesContent":[".message {\n  font-size: 16px;\n  font-weight: 200;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n\n.message--from-user {\n  color: #7ac6ff;\n  font-size: 16px;\n  font-weight: 200;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -35066,6 +35066,11 @@
 	
 	  var input = void 0;
 	
+	  var onBlur = function onBlur(e) {
+	    e.preventDefault();
+	    input.focus();
+	  };
+	
 	  var onSubmit = function onSubmit(e) {
 	    e.preventDefault();
 	    if (!input.value.trim()) {
@@ -35083,7 +35088,8 @@
 	      { className: _addMessage2.default.form, onSubmit: onSubmit },
 	      _react2.default.createElement('input', { className: _addMessage2.default.input, ref: function ref(node) {
 	          input = node;
-	        } }),
+	          input.focus();
+	        }, onBlur: onBlur }),
 	      _react2.default.createElement(
 	        'button',
 	        { className: _addMessage2.default.button, type: 'submit' },
@@ -35182,7 +35188,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".add-message__addMessage___39FDf {\n  margin-top: 60px; }\n\n.add-message__form___3AX_E {\n  margin: 24px 0 0 0;\n  text-align: center; }\n\n.add-message__input___3MlGy {\n  display: block;\n  font-size: 24px;\n  font-weight: 200;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid white;\n  color: white;\n  height: 36px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 360px; }\n\n.add-message__button___iac3v {\n  background-color: grey;\n  color: white;\n  border-radius: 0;\n  border: none;\n  padding: 8px 12px;\n  text-transform: uppercase; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/add-message.scss"],"names":[],"mappings":"AAAA;EACE,iBAAiB,EAClB;;AAED;EACE,mBAAmB;EACnB,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,+BAA+B;EAC/B,aAAa;EACb,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,uBAAuB;EACvB,aAAa;EACb,iBAAiB;EACjB,aAAa;EACb,kBAAkB;EAClB,0BAA0B,EAC3B","file":"add-message.scss","sourcesContent":[".addMessage {\n  margin-top: 60px;\n}\n\n.form {\n  margin: 24px 0 0 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-size: 24px;\n  font-weight: 200;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid white;\n  color: white;\n  height: 36px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 360px;\n}\n\n.button {\n  background-color: grey;\n  color: white;\n  border-radius: 0;\n  border: none;\n  padding: 8px 12px;\n  text-transform: uppercase;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".add-message__addMessage___39FDf {\n  margin-top: 60px; }\n\n.add-message__form___3AX_E {\n  margin: 24px 0 0 0;\n  text-align: center; }\n\n.add-message__input___3MlGy {\n  display: block;\n  font-size: 16px;\n  font-weight: 200;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid #7ac6ff;\n  color: #7ac6ff;\n  height: 36px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px; }\n\n.add-message__button___iac3v {\n  display: none; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/add-message.scss"],"names":[],"mappings":"AAAA;EACE,iBAAiB,EAClB;;AAED;EACE,mBAAmB;EACnB,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,iCAAiC;EACjC,eAAe;EACf,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,cAAc,EAOf","file":"add-message.scss","sourcesContent":[".addMessage {\n  margin-top: 60px;\n}\n\n.form {\n  margin: 24px 0 0 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-size: 16px;\n  font-weight: 200;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid #7ac6ff;\n  color: #7ac6ff;\n  height: 36px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px;\n}\n\n.button {\n  display: none;\n  // background-color: grey;\n  // color: white;\n  // border-radius: 0;\n  // border: none;\n  // padding: 8px 12px;\n  // text-transform: uppercase;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -35227,7 +35233,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".home__title___2CDoZ {\n  color: white;\n  font-size: 64px;\n  font-weight: 200;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/home.scss"],"names":[],"mappings":"AAAA;EACE,aAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,mBAAmB,EACpB","file":"home.scss","sourcesContent":[".title {\n  color: rgba(255, 255, 255, 1);\n  font-size: 64px;\n  font-weight: 200;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".home__title___2CDoZ {\n  color: white;\n  font-size: 24px;\n  font-weight: 200;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/home.scss"],"names":[],"mappings":"AAAA;EACE,aAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,mBAAmB,EACpB","file":"home.scss","sourcesContent":[".title {\n  color: rgba(255, 255, 255, 1);\n  font-size: 24px;\n  font-weight: 200;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {

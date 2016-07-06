@@ -10,7 +10,7 @@ class Home extends React.Component {
     return (
       <div>
         <h1 styleName='title'>
-          Hi, I am H
+          I am H
         </h1>
         <Messages />
         <AddMessage />

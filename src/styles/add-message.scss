@@ -9,26 +9,27 @@
 
 .input {
   display: block;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 200;
   background-color: transparent;
   outline: none;
   border-left: none;
   border-right: none;
   border-top: none;
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid #7ac6ff;
+  color: #7ac6ff;
   height: 36px;
   margin: 0 auto 10px auto;
   text-align: center;
-  width: 360px;
+  width: 144px;
 }
 
 .button {
-  background-color: grey;
-  color: white;
-  border-radius: 0;
-  border: none;
-  padding: 8px 12px;
-  text-transform: uppercase;
+  display: none;
+  // background-color: grey;
+  // color: white;
+  // border-radius: 0;
+  // border: none;
+  // padding: 8px 12px;
+  // text-transform: uppercase;
 }
