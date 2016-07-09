@@ -7,6 +7,8 @@ var port = process.env.PORT || 8080;
 
 app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
 
+app.use(express.static(path.join(__dirname)));
+
 app.get('/', function(req, res) {
   res.render(path.join(__dirname, 'index.html'));
 });
