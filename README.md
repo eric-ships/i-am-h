@@ -6,6 +6,7 @@
 
 ###### Development
 
+`npm install`
 `npm run dev`
 
 ## Present
