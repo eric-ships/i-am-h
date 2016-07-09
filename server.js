@@ -1,8 +1,11 @@
-var path = require('path');
 var express = require('express');
+var favicon = require('serve-favicon');
+var path = require('path');
 
 var app = express();
 var port = process.env.PORT || 8080;
+
+app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
 
 app.get('/', function(req, res) {
   res.render(path.join(__dirname, 'index.html'));

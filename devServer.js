@@ -1,10 +1,13 @@
-var path = require('path');
-var express = require('express');
-var webpack = require('webpack');
 var config = require('./webpack.config.dev');
+var express = require('express');
+var favicon = require('serve-favicon');
+var path = require('path');
+var webpack = require('webpack');
 
 var app = express();
 var compiler = webpack(config);
+
+app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
 
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
