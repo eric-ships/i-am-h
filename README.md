@@ -15,6 +15,7 @@
 
 ## The Near Future
 
+* add immutability
 * simple third-party API integration such as OS X Notes
 * testing - babel-jest?, mocha?, karma?
 * Twilio integration so that the app is accessible via text
