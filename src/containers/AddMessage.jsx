@@ -9,7 +9,9 @@ let AddMessage = ({ dispatch }) => {
 
   const onBlur = (e) => {
     e.preventDefault()
-    input.focus()
+    if (input) {
+      input.focus()
+    }
   }
 
   const onSubmit = (e) => {
@@ -24,10 +26,10 @@ let AddMessage = ({ dispatch }) => {
   return (
     <div className={styles.addMessage}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <input className={styles.input} ref={node => {
-          input = node
-          input.focus()
-        }} onBlur={onBlur}/>
+        <input className={styles.input}
+          ref={node => { input = node }}
+          onBlur={onBlur}
+        />
         <button className={styles.button} type="submit">
           Chat
         </button>
