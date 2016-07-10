@@ -9,45 +9,46 @@
 `npm install`
 `npm run dev`
 
-## Present
+###### Browser Compatibility
 
-* very, very basic conversational bot
+* Chrome 47
+* Firefox 43
+* Safari 9
 
-## The Near Future
+Other versions are untested at this time, let me know issues or bugs.
 
-* assets versioning
-* minify, extract css out for prod
-* add immutability
-* simple third-party API integration such as OS X Notes
-* testing - babel-jest?, mocha?, karma?
+## Todo
+
+* Assets versioning
+* Minify, extract css out for prod
+* Add immutability
+* Simple third-party API integration such as OS X Notes
+* Testing - babel-jest?, mocha?, karma?
 * Twilio integration so that the app is accessible via text
-* [wit.ai](https://wit.ai/) to help with NLP
-
-## On the Horizon
-
-* find a way to normalize incoming data before it hits store?
-* pulling data from third-party APIs
-* d3 for data visualization
-* universal js
+* [Wit.ai](https://wit.ai/) to help with NLP
+* Find a way to normalize incoming data before it hits store?
+* Pulling data from third-party APIs
+* D3 for data visualization
+* Universal js
 
 ## Technology
 
 ###### NLP
 
-* [api.ai](https://api.ai/)
+* [Api.ai](https://api.ai/)
 
 ###### Production
 
-* [es7](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
-* [react](https://facebook.github.io/react/)
-* [babel](https://babeljs.io/)
-* [redux](https://github.com/reactjs/redux)
-* [react-router](https://github.com/reactjs/react-router)
-* [react-redux-router](https://github.com/reactjs/react-router-redux)
-* [react-thunk](https://github.com/gaearon/redux-thunk)
-* [webpack](https://webpack.github.io/)
+* [ES7](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
+* [React](https://facebook.github.io/react/)
+* [Babel](https://babeljs.io/)
+* [Redux](https://github.com/reactjs/redux)
+* [React-Router](https://github.com/reactjs/react-router)
+* [React-Redux-Router](https://github.com/reactjs/react-router-redux)
+* [React-Thunk](https://github.com/gaearon/redux-thunk)
+* [Webpack](https://webpack.github.io/)
 
 ###### Development
 
-* [eslint](http://eslint.org/)
-* [react-hot-loader](https://github.com/gaearon/react-hot-loader)
+* [ESLint](http://eslint.org/)
+* [React-Hot-Loader](https://github.com/gaearon/react-hot-loader)

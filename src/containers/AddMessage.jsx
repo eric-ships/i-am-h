@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addMessageWithApiai } from 'actions/messageActionCreators'
+import { sendMessage } from 'actions/messageActionCreators'
 
 import styles from 'styles/add-message'
 
@@ -10,7 +10,7 @@ let AddMessage = ({ dispatch }) => {
   const onBlur = (e) => {
     e.preventDefault()
     if (input) {
-      input.focus()
+      // input.focus()
     }
   }
 
@@ -19,7 +19,7 @@ let AddMessage = ({ dispatch }) => {
     if (!input.value.trim()) {
       return
     }
-    dispatch(addMessageWithApiai(input.value))
+    dispatch(sendMessage(input.value))
     input.value = ''
   }
 

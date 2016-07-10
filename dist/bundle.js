@@ -28614,12 +28614,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import { bindActionCreators } from 'redux'
-	
-	
 	var mapStateToProps = function mapStateToProps() {
 	  return {};
 	};
+	// todo for active dashboard el
+	// import { bindActionCreators } from 'redux'
 	// import * as messageActionCreators from 'actions/messageActionCreators'
 	
 	var mapDispatchToProps = function mapDispatchToProps() {
@@ -50593,7 +50592,7 @@
 	  var onBlur = function onBlur(e) {
 	    e.preventDefault();
 	    if (input) {
-	      input.focus();
+	      // input.focus()
 	    }
 	  };
 	
@@ -50602,7 +50601,7 @@
 	    if (!input.value.trim()) {
 	      return;
 	    }
-	    dispatch((0, _messageActionCreators.addMessageWithApiai)(input.value));
+	    dispatch((0, _messageActionCreators.sendMessage)(input.value));
 	    input.value = '';
 	  };
 	
@@ -50642,10 +50641,53 @@
 	});
 	var apiaiToken = '62323607e46c461995ff6430837c5a15';
 	var sessionId = (+new Date()).toString(36);
-	var nextMessageId = 1;
+	var nextMessageId = 1; // initial state starts at one
 	
-	var addMessageWithApiai = exports.addMessageWithApiai = function addMessageWithApiai(text) {
+	// todo: extract out commands logic
+	
+	function displayEric() {
+	  fetch('http://ericliu121187.com/json').then(function (promise) {
+	    return promise.json().then(function (json) {
+	      console.log(json); // todo main display
+	    });
+	  });
+	}
+	
+	function handleCommand(cmd) {
+	  switch (cmd) {
+	    case 'eric':
+	      displayEric();
+	      break;
+	    case 'resume':
+	      // todo
+	      break;
+	  }
+	}
+	
+	// tood: write test
+	function isCommand(text) {
+	  // todo: better name? reserved word?
+	  var commands = ['eric', 'help', 'resume'];
+	
+	  return commands.includes(text);
+	}
+	
+	var sendMessage = function sendMessage(text) {
 	  return function (dispatch) {
+	    var stripped = text.toLowerCase().replace(/[^a-zA-Z]+/g, '');
+	
+	    if (stripped === 'help') {
+	      dispatch(addMessage(text, true));
+	      dispatch(addMessage('Here\'s some help. Type in "eric"'), false); // todo: extract out canned responses
+	      return;
+	    }
+	
+	    if (isCommand(stripped)) {
+	      handleCommand(stripped); // todo: extract
+	      dispatch(addMessage(text, true));
+	      return;
+	    }
+	
 	    var req = new Request('https://api.api.ai/v1/query?v=20150910', {
 	      body: JSON.stringify({
 	        lang: 'en',
@@ -50665,14 +50707,15 @@
 	      return promise.json().then(function (body) {
 	        var apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.';
 	        dispatch(addMessage(apiaiText, false));
-	      }
-	      // error => console.error(error) // dispatch error!
+	      }).catch(function (error) {
+	        return console.error(error);
+	      } // todo: dispatch error!
 	      );
 	    });
 	  };
 	};
 	
-	var addMessage = exports.addMessage = function addMessage(text, fromUser) {
+	var addMessage = function addMessage(text, fromUser) {
 	  return {
 	    type: 'ADD_MESSAGE',
 	    id: nextMessageId++,
@@ -50680,6 +50723,9 @@
 	    fromUser: fromUser
 	  };
 	};
+	
+	exports.default = addMessage;
+	exports.sendMessage = sendMessage;
 
 /***/ },
 /* 297 */
