@@ -19,7 +19,7 @@ class Letter extends Component {
   componentWillEnter(callback) {
     let node = select(ReactDOM.findDOMNode(this))
 
-    this.setState({ x: this.props.i*32 })
+    this.setState({ x: this.props.i * 8 })
 
     node.transition(this.transition)
         .attr('y', 0)
@@ -52,8 +52,8 @@ class Letter extends Component {
         this.setState({ className: 'update' })
 
         node.transition(this.transition)
-            .attr('x', nextProps.i*32)
-            .on('end', () => this.setState({ x: nextProps.i*32 }))
+            .attr('x', nextProps.i * 8)
+            .on('end', () => this.setState({ x: nextProps.i * 8 }))
       }
     }
   }

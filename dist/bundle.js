@@ -46123,19 +46123,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Alphabet = __webpack_require__(282);
+	var _QuotesOnDesign = __webpack_require__(282);
 	
-	var _Alphabet2 = _interopRequireDefault(_Alphabet);
+	var _QuotesOnDesign2 = _interopRequireDefault(_QuotesOnDesign);
 	
-	var _AddMessage = __webpack_require__(295);
+	var _AddMessage = __webpack_require__(296);
 	
 	var _AddMessage2 = _interopRequireDefault(_AddMessage);
 	
-	var _Messages = __webpack_require__(299);
+	var _Messages = __webpack_require__(300);
 	
 	var _Messages2 = _interopRequireDefault(_Messages);
 	
-	var _home = __webpack_require__(303);
+	var _home = __webpack_require__(304);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
@@ -46162,11 +46162,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'svg',
-	          { width: '250', height: '250' },
-	          _react2.default.createElement(_Alphabet2.default, { x: 50, y: 50 })
-	        ),
+	        _react2.default.createElement(_QuotesOnDesign2.default, null),
 	        _react2.default.createElement(
 	          'h1',
 	          { styleName: 'title' },
@@ -46193,21 +46189,53 @@
 	  value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Quotes = __webpack_require__(283);
+	
+	var _Quotes2 = _interopRequireDefault(_Quotes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// todo: move fetch logic here and make this a container?
+	
+	var QuotesOnDesign = function QuotesOnDesign() {
+	  return _react2.default.createElement(
+	    'svg',
+	    { width: '96%', height: '88', style: { fontSize: 12 + 'px' } },
+	    _react2.default.createElement(_Quotes2.default, { x: 50, y: 50 })
+	  );
+	};
+	
+	exports.default = QuotesOnDesign;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsTransitionGroup = __webpack_require__(283);
+	var _reactAddonsTransitionGroup = __webpack_require__(284);
 	
 	var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
 	
-	var _d3Array = __webpack_require__(286);
+	var _d3Array = __webpack_require__(287);
 	
-	var _d3Timer = __webpack_require__(287);
+	var _d3Timer = __webpack_require__(288);
 	
-	var _Letter = __webpack_require__(288);
+	var _Letter = __webpack_require__(289);
 	
 	var _Letter2 = _interopRequireDefault(_Letter);
 	
@@ -46219,33 +46247,90 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Alphabet = function (_Component) {
-	  _inherits(Alphabet, _Component);
+	var Quotes = function (_Component) {
+	  _inherits(Quotes, _Component);
 	
-	  function Alphabet() {
+	  function Quotes() {
 	    var _Object$getPrototypeO;
 	
 	    var _temp, _this, _ret;
 	
-	    _classCallCheck(this, Alphabet);
+	    _classCallCheck(this, Quotes);
 	
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Alphabet)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = { alphabet: [] }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Quotes)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	      quotes: [],
+	      current: []
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
-	  _createClass(Alphabet, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	  _createClass(Quotes, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getQuotes();
+	      this.constantlyUpdateQuote();
+	    }
+	  }, {
+	    key: 'constantlyUpdateQuote',
+	    value: function constantlyUpdateQuote() {
 	      var _this2 = this;
 	
 	      (0, _d3Timer.interval)(function () {
-	        return _this2.setState({
-	          alphabet: (0, _d3Array.shuffle)(Alphabet.letters).slice(0, Math.floor(Math.random() * Alphabet.letters.length)).sort()
+	        var q = (0, _d3Array.shuffle)(_this2.state.quotes);
+	        var c = _this2.parseHTMLAndCreateCharArr(q[0].content);
+	
+	        _this2.setState({
+	          current: c
 	        });
-	      }, 1500);
+	      }, 8000);
+	    }
+	  }, {
+	    key: 'getQuotes',
+	    value: function getQuotes() {
+	      var _this3 = this;
+	
+	      // Quotes on Design API v4.0
+	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=12'; // todo: make params into object literal
+	
+	      fetch(url).then(function (promise) {
+	        return promise.json().then(function (res) {
+	          _this3.setState({
+	            quotes: res
+	          });
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'parseHTMLAndCreateCharArr',
+	    value: function parseHTMLAndCreateCharArr(html) {
+	      var htmlTags = /(<([^>]+)>)/ig;
+	      var t = document.createElement('textarea');
+	
+	      t.innerHTML = html;
+	
+	      return t.value.replace(htmlTags, '').split('');
+	    }
+	  }, {
+	    key: 'renderLetters',
+	    value: function renderLetters() {
+	      var nodes = [];
+	      var counts = {};
+	      var key = void 0;
+	
+	      this.state.current.map(function (d, i) {
+	        var count = counts[d] || 0;
+	
+	        count++;
+	        counts[d] = count;
+	        key = d + '-' + count;
+	
+	        nodes.push(_react2.default.createElement(_Letter2.default, { d: d, i: i, key: '' + key }));
+	      });
+	
+	      return nodes;
 	    }
 	  }, {
 	    key: 'render',
@@ -46258,28 +46343,25 @@
 	        _react2.default.createElement(
 	          _reactAddonsTransitionGroup2.default,
 	          { component: 'g' },
-	          this.state.alphabet.map(function (d, i) {
-	            return _react2.default.createElement(_Letter2.default, { d: d, i: i, key: 'letter-' + d });
-	          })
+	          this.renderLetters()
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return Alphabet;
+	  return Quotes;
 	}(_react.Component);
 	
-	Alphabet.letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-	exports.default = Alphabet;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(284);
+	exports.default = Quotes;
 
 /***/ },
 /* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(285);
+
+/***/ },
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -46299,7 +46381,7 @@
 	
 	var React = __webpack_require__(2);
 	var ReactInstanceMap = __webpack_require__(212);
-	var ReactTransitionChildMapping = __webpack_require__(285);
+	var ReactTransitionChildMapping = __webpack_require__(286);
 	
 	var emptyFunction = __webpack_require__(12);
 	
@@ -46531,7 +46613,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -46640,7 +46722,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-array/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -47109,7 +47191,7 @@
 	}));
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-timer/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -47264,7 +47346,7 @@
 	}));
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47283,11 +47365,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _d3Selection = __webpack_require__(289);
+	var _d3Selection = __webpack_require__(290);
 	
-	var _d3Ease = __webpack_require__(290);
+	var _d3Ease = __webpack_require__(291);
 	
-	var _d3Transition = __webpack_require__(291);
+	var _d3Transition = __webpack_require__(292);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -47326,7 +47408,7 @@
 	
 	      var node = (0, _d3Selection.select)(_reactDom2.default.findDOMNode(this));
 	
-	      this.setState({ x: this.props.i * 32 });
+	      this.setState({ x: this.props.i * 8 });
 	
 	      node.transition(this.transition).attr('y', 0).style('fill-opacity', 1).on('end', function () {
 	        _this2.setState({ y: 0, fillOpacity: 1 });
@@ -47358,8 +47440,8 @@
 	
 	          this.setState({ className: 'update' });
 	
-	          node.transition(this.transition).attr('x', nextProps.i * 32).on('end', function () {
-	            return _this4.setState({ x: nextProps.i * 32 });
+	          node.transition(this.transition).attr('x', nextProps.i * 8).on('end', function () {
+	            return _this4.setState({ x: nextProps.i * 8 });
 	          });
 	        }
 	      }
@@ -47386,7 +47468,7 @@
 	exports.default = Letter;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-selection/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -48364,7 +48446,7 @@
 	}));
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-ease/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -48625,12 +48707,12 @@
 	}));
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-transition/ Version 1.0.0. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(289), __webpack_require__(292), __webpack_require__(287), __webpack_require__(293), __webpack_require__(294), __webpack_require__(290)) :
+	   true ? factory(exports, __webpack_require__(290), __webpack_require__(293), __webpack_require__(288), __webpack_require__(294), __webpack_require__(295), __webpack_require__(291)) :
 	  typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-dispatch', 'd3-timer', 'd3-interpolate', 'd3-color', 'd3-ease'], factory) :
 	  (factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
 	}(this, function (exports,d3Selection,d3Dispatch,d3Timer,d3Interpolate,d3Color,d3Ease) { 'use strict';
@@ -49404,7 +49486,7 @@
 	}));
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-dispatch/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -49504,12 +49586,12 @@
 	}));
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-interpolate/ Version 1.0.0. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(294)) :
+	   true ? factory(exports, __webpack_require__(295)) :
 	  typeof define === 'function' && define.amd ? define(['exports', 'd3-color'], factory) :
 	  (factory((global.d3 = global.d3 || {}),global.d3));
 	}(this, function (exports,d3Color) { 'use strict';
@@ -50039,7 +50121,7 @@
 	}));
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-color/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -50561,7 +50643,7 @@
 	}));
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50576,9 +50658,9 @@
 	
 	var _reactRedux = __webpack_require__(117);
 	
-	var _messageActionCreators = __webpack_require__(296);
+	var _messageActionCreators = __webpack_require__(297);
 	
-	var _addMessage = __webpack_require__(297);
+	var _addMessage = __webpack_require__(298);
 	
 	var _addMessage2 = _interopRequireDefault(_addMessage);
 	
@@ -50631,7 +50713,7 @@
 	exports.default = AddMessage;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50728,13 +50810,13 @@
 	exports.sendMessage = sendMessage;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(298);
+	var content = __webpack_require__(299);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -50754,7 +50836,7 @@
 	}
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
@@ -50773,7 +50855,7 @@
 	};
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50784,7 +50866,7 @@
 	
 	var _reactRedux = __webpack_require__(117);
 	
-	var _MessagesList = __webpack_require__(300);
+	var _MessagesList = __webpack_require__(301);
 	
 	var _MessagesList2 = _interopRequireDefault(_MessagesList);
 	
@@ -50810,7 +50892,7 @@
 	exports.default = Messages;
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50827,7 +50909,7 @@
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _messagesList = __webpack_require__(301);
+	var _messagesList = __webpack_require__(302);
 	
 	var _messagesList2 = _interopRequireDefault(_messagesList);
 	
@@ -50851,13 +50933,13 @@
 	exports.default = (0, _reactCssModules2.default)(MessagesList, _messagesList2.default);
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(302);
+	var content = __webpack_require__(303);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -50877,7 +50959,7 @@
 	}
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
@@ -50894,13 +50976,13 @@
 	};
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(304);
+	var content = __webpack_require__(305);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -50920,7 +51002,7 @@
 	}
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
