@@ -50646,29 +50646,40 @@
 	
 	var addMessageWithApiai = exports.addMessageWithApiai = function addMessageWithApiai(text) {
 	  return function (dispatch) {
-	    var req = new Request('https://api.api.ai/v1/query?v=20150910', {
-	      body: JSON.stringify({
-	        lang: 'en',
-	        query: text,
-	        sessionId: sessionId
-	      }),
-	      headers: new Headers({
-	        Authorization: 'Bearer ' + apiaiToken,
-	        'Content-Type': 'application/json; charset=utf-8'
-	      }),
-	      mode: 'cors',
-	      method: 'post'
-	    });
+	    if (text === 'help') {
+	      dispatch(addMessage(text, true));
+	      dispatch(addMessage('Helping...', false)); // todo: get commands working
+	      fetch('http://ericliu121187.com/json').then(function (promise) {
+	        return promise.json().then(function (json) {
+	          console.log(json);
+	        });
+	      });
+	    } else {
+	      var req = new Request('https://api.api.ai/v1/query?v=20150910', {
+	        body: JSON.stringify({
+	          lang: 'en',
+	          query: text,
+	          sessionId: sessionId
+	        }),
+	        headers: new Headers({
+	          Authorization: 'Bearer ' + apiaiToken,
+	          'Content-Type': 'application/json; charset=utf-8'
+	        }),
+	        mode: 'cors',
+	        method: 'post'
+	      });
 	
-	    dispatch(addMessage(text, true));
-	    fetch(req).then(function (promise) {
-	      return promise.json().then(function (body) {
-	        var apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.';
-	        dispatch(addMessage(apiaiText, false));
-	      }
-	      // error => console.error(error) // dispatch error!
-	      );
-	    });
+	      dispatch(addMessage(text, true));
+	      fetch(req).then(function (promise) {
+	        return promise.json().then(function (body) {
+	          var apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.';
+	          dispatch(addMessage(apiaiText, false));
+	        }).catch(function (error) {
+	          return console.error(error);
+	        } // todo: dispatch error!
+	        );
+	      });
+	    }
 	  };
 	};
 	
