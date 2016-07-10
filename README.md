@@ -15,13 +15,17 @@
 
 ## The Near Future
 
+* assets versioning
+* minify, extract css out for prod
 * add immutability
 * simple third-party API integration such as OS X Notes
 * testing - babel-jest?, mocha?, karma?
 * Twilio integration so that the app is accessible via text
+* [wit.ai](https://wit.ai/) to help with NLP
 
 ## On the Horizon
 
+* find a way to normalize incoming data before it hits store?
 * pulling data from third-party APIs
 * d3 for data visualization
 * universal js
@@ -30,7 +34,6 @@
 
 ###### NLP
 
-* [wit.ai](https://wit.ai/)
 * [api.ai](https://api.ai/)
 
 ###### Production
