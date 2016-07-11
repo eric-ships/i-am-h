@@ -1,10 +1,13 @@
 @import '~base/variables';
 
 .quote {
-  display: block;
-  width: 88%;
+  bottom: 0;
   color: $subtle-grey;
-  font-size: 12px;
+  display: block;
   font-family: $font-fixed;
+  font-size: 12px;
+  height: 120px;
   margin: 0 auto;
+  position: fixed;
+  width: 100%;
 }

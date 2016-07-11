@@ -30,7 +30,7 @@ class QuotesOnDesign extends React.Component {
 
   render() {
     return (
-      <Quote quotes={this.state.quotes} x={12} y={48}/>
+      <Quote quotes={this.state.quotes} x={48} y={48}/>
     )
   }
 }

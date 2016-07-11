@@ -46242,7 +46242,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_Quote2.default, { quotes: this.state.quotes, x: 12, y: 48 });
+	      return _react2.default.createElement(_Quote2.default, { quotes: this.state.quotes, x: 48, y: 48 });
 	    }
 	  }]);
 	
@@ -50740,7 +50740,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".quote__quote___2lkUO {\n  display: block;\n  width: 88%;\n  color: rgba(0, 0, 0, 0.38);\n  font-size: 12px;\n  font-family: \"Inconsolata\", monospace;\n  margin: 0 auto; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/quote.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,eAAe;EACf,WAAW;EACX,2BCGgB;EDFhB,gBAAgB;EAChB,sCCJmC;EDKnC,eAAe,EAChB","file":"quote.scss","sourcesContent":["@import '~base/variables';\n\n.quote {\n  display: block;\n  width: 88%;\n  color: $subtle-grey;\n  font-size: 12px;\n  font-family: $font-fixed;\n  margin: 0 auto;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".quote__quote___2lkUO {\n  bottom: 0;\n  color: rgba(0, 0, 0, 0.38);\n  display: block;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 12px;\n  height: 120px;\n  margin: 0 auto;\n  position: fixed;\n  width: 100%; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/quote.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,UAAU;EACV,2BCIgB;EDHhB,eAAe;EACf,sCCHmC;EDInC,gBAAgB;EAChB,cAAc;EACd,eAAe;EACf,gBAAgB;EAChB,YAAY,EACb","file":"quote.scss","sourcesContent":["@import '~base/variables';\n\n.quote {\n  bottom: 0;\n  color: $subtle-grey;\n  display: block;\n  font-family: $font-fixed;\n  font-size: 12px;\n  height: 120px;\n  margin: 0 auto;\n  position: fixed;\n  width: 100%;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
