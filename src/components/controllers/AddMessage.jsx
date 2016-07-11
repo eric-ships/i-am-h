@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { sendMessage } from 'actions/messageActionCreators'
 
-import styles from 'styles/add-message'
+import styles from 'modules/add-message'
 
 let AddMessage = ({ dispatch }) => {
   let input

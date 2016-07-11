@@ -1,6 +1,7 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
-import styles from 'styles/messages-list'
+
+import styles from 'modules/messages-list'
 
 const MessagesList = ({ messages }) => (
 
