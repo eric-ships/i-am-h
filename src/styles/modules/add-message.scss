@@ -19,14 +19,28 @@
   border-left: none;
   border-right: none;
   border-top: none;
-  border-bottom: 1px solid $grey;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   color: $grey;
   height: 24px;
   margin: 0 auto 10px auto;
   text-align: center;
-  width: 144px;
+  width: 240px;
 }
 
 .button {
+  background: transparent;
+  border: none;
+  color: $subtle-grey;
+  display: block;
+  margin: 0 auto;
+  outline: none;
+  text-transform: uppercase;
+}
+
+@media (min-width: 600px) {
+
+.button {
   display: none;
+}
+
 }

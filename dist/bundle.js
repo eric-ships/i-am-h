@@ -46159,7 +46159,11 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_QuotesOnDesign2.default, null),
-	        _react2.default.createElement('h1', { styleName: 'title' }),
+	        _react2.default.createElement(
+	          'h1',
+	          { styleName: 'title' },
+	          'I am H, created by Eric Liu'
+	        ),
 	        _react2.default.createElement(_Messages2.default, null),
 	        _react2.default.createElement(_AddMessage2.default, null)
 	      );
@@ -46231,7 +46235,9 @@
 	      // Quotes on Design API v4.0
 	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=24'; // todo: make params into object literal
 	
-	      fetch(url).then(function (promise) {
+	      fetch(url, {
+	        mode: 'cors'
+	      }).then(function (promise) {
 	        return promise.json().then(function (res) {
 	          _this2.setState({
 	            quotes: res
@@ -46343,7 +46349,7 @@
 	        _this2.setState({
 	          current: (0, _d3Array.shuffle)(quotes)[0].content
 	        });
-	      }, 4000);
+	      }, 8000);
 	    }
 	  }, {
 	    key: 'displayQuotes',
@@ -50791,6 +50797,7 @@
 	      return;
 	    }
 	    dispatch((0, _messageActionCreators.sendMessage)(input.value));
+	    input.placeholder = '';
 	    input.value = '';
 	  };
 	
@@ -50804,12 +50811,13 @@
 	        ref: function ref(node) {
 	          input = node;
 	        },
-	        onBlur: onBlur
+	        onBlur: onBlur,
+	        placeholder: 'type "help" at any time'
 	      }),
 	      _react2.default.createElement(
 	        'button',
 	        { className: _addMessage2.default.button, type: 'submit' },
-	        'Chat'
+	        'respond'
 	      )
 	    )
 	  );
@@ -50865,15 +50873,17 @@
 	  return function (dispatch) {
 	    var stripped = text.toLowerCase().replace(/[^a-zA-Z]+/g, '');
 	
+	    dispatch(addMessage(text, true));
+	
 	    if (stripped === 'help') {
-	      dispatch(addMessage(text, true));
+	
 	      dispatch(addMessage('Here\'s some help. Type in "eric"'), false); // todo: extract out canned responses
 	      return;
 	    }
 	
 	    if (isCommand(stripped)) {
 	      handleCommand(stripped); // todo: extract
-	      dispatch(addMessage(text, true));
+	
 	      return;
 	    }
 	
@@ -50891,7 +50901,6 @@
 	      method: 'post'
 	    });
 	
-	    dispatch(addMessage(text, true));
 	    fetch(req).then(function (promise) {
 	      return promise.json().then(function (body) {
 	        var apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.';
@@ -50951,7 +50960,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".add-message__addmessage___3aM4n {\n  margin: 24px 0 0 0; }\n\n.add-message__form___2RemC {\n  margin: 0;\n  text-align: center; }\n\n.add-message__input___2sHYi {\n  display: block;\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.54);\n  color: rgba(0, 0, 0, 0.54);\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px; }\n\n.add-message__button___8bJMv {\n  display: none; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/add-message.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,mBAAmB,EACpB;;AAED;EACE,UAAU;EACV,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,qCCXoC;EDYpC,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,6CCdS;EDeT,2BCfS;EDgBT,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,cAAc,EACf","file":"add-message.scss","sourcesContent":["@import '~base/variables';\n\n.addmessage {\n  margin: 24px 0 0 0;\n}\n\n.form {\n  margin: 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid $grey;\n  color: $grey;\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px;\n}\n\n.button {\n  display: none;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".add-message__addmessage___3aM4n {\n  margin: 24px 0 0 0; }\n\n.add-message__form___2RemC {\n  margin: 0;\n  text-align: center; }\n\n.add-message__input___2sHYi {\n  display: block;\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.24);\n  color: rgba(0, 0, 0, 0.54);\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 240px; }\n\n.add-message__button___8bJMv {\n  background: transparent;\n  border: none;\n  color: rgba(0, 0, 0, 0.38);\n  display: block;\n  margin: 0 auto;\n  outline: none;\n  text-transform: uppercase; }\n\n@media (min-width: 600px) {\n  .add-message__button___8bJMv {\n    display: none; } }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/add-message.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,mBAAmB,EACpB;;AAED;EACE,UAAU;EACV,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,qCCXoC;EDYpC,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,6CAA6B;EAC7B,2BCfS;EDgBT,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,wBAAwB;EACxB,aAAa;EACb,2BCxBgB;EDyBhB,eAAe;EACf,eAAe;EACf,cAAc;EACd,0BAA0B,EAC3B;;AAED;EAEA;IACE,cAAc,EACf,EAAA","file":"add-message.scss","sourcesContent":["@import '~base/variables';\n\n.addmessage {\n  margin: 24px 0 0 0;\n}\n\n.form {\n  margin: 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.24);\n  color: $grey;\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 240px;\n}\n\n.button {\n  background: transparent;\n  border: none;\n  color: $subtle-grey;\n  display: block;\n  margin: 0 auto;\n  outline: none;\n  text-transform: uppercase;\n}\n\n@media (min-width: 600px) {\n\n.button {\n  display: none;\n}\n\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -51072,7 +51081,7 @@
 	exports.i(__webpack_require__(306), undefined);
 	
 	// module
-	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87); }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54); }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU,EDDX;;AAED;EAEE,2BCFS,EDGV","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n}\n\n.message--from-user {\n  composes: message from '../composers/message';\n  color: $grey;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87);\n  text-align: left;\n  padding-right: 48px; }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54);\n  text-align: right;\n  padding-left: 48px; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU;EDDV,iBAAiB;EACjB,oBAAoB,EACrB;;AAED;EAEE,2BCJS;EDKT,kBAAkB;EAClB,mBAAmB,EACpB","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n  text-align: left;\n  padding-right: 48px;\n}\n\n.message--from-user {\n  composes: message from '../composers/message';\n  color: $grey;\n  text-align: right;\n  padding-left: 48px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -51089,7 +51098,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".message__message___2EutC {\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/composers/src/styles/composers/message.scss","/./src/styles/composers/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,qCCDoC;EDEpC,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"message.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".message__message___2EutC {\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/composers/src/styles/composers/message.scss","/./src/styles/composers/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,qCCDoC;EDEpC,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,aAAa,EACd","file":"message.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -51128,10 +51137,10 @@
 
 	exports = module.exports = __webpack_require__(279)();
 	// imports
-	
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".home__title___26Hpx {\n  color: rgba(77, 179, 255, 0.87);\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/home.scss"],"names":[],"mappings":"AAAA;EACE,gCAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,sBAAsB;EACtB,mBAAmB,EACpB","file":"home.scss","sourcesContent":[".title {\n  color: rgba(77, 179, 255, 0.87);;\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".home__title___26Hpx {\n  color: rgba(0, 0, 0, 0.38);\n  font-size: 12px;\n  font-weight: 400;\n  margin: 24px 0;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/home.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,2BCKgB;EDJhB,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,mBAAmB,EACpB","file":"home.scss","sourcesContent":["@import '~base/variables';\n\n.title {\n  color: $subtle-grey;\n  font-size: 12px;\n  font-weight: 400;\n  margin: 24px 0;\n  text-align: center;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {

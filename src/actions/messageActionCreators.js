@@ -36,15 +36,17 @@ const sendMessage = (text) => {
   return function(dispatch) {
     const stripped = text.toLowerCase().replace(/[^a-zA-Z]+/g, '')
 
+    dispatch(addMessage(text, true))
+
     if (stripped === 'help') {
-      dispatch(addMessage(text, true))
+
       dispatch(addMessage('Here\'s some help. Type in "eric"'), false) // todo: extract out canned responses
       return
     }
 
     if (isCommand(stripped)) {
       handleCommand(stripped) // todo: extract
-      dispatch(addMessage(text, true))
+
       return
     }
 
@@ -62,7 +64,6 @@ const sendMessage = (text) => {
       method: 'post'
     })
 
-    dispatch(addMessage(text, true))
     fetch(req).then(
       promise => promise.json()
       .then(

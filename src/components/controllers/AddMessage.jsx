@@ -22,6 +22,7 @@ let AddMessage = ({ dispatch }) => {
       return
     }
     dispatch(sendMessage(input.value))
+    input.placeholder = ''
     input.value = ''
   }
 
@@ -31,9 +32,10 @@ let AddMessage = ({ dispatch }) => {
         <input className={styles.input}
           ref={node => { input = node }}
           onBlur={onBlur}
+          placeholder='type "help" at any time'
         />
         <button className={styles.button} type="submit">
-          Chat
+          respond
         </button>
       </form>
     </div>

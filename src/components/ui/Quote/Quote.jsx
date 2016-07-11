@@ -43,7 +43,7 @@ class Quote extends React.Component {
       this.setState({
         current: shuffle(quotes)[0].content
       })
-    }, 4000)
+    }, 8000)
   }
 
   displayQuotes(quotes) {

@@ -3,9 +3,13 @@
 .message {
   composes: message from '../composers/message';
   color: $black;
+  text-align: left;
+  padding-right: 48px;
 }
 
 .message--from-user {
   composes: message from '../composers/message';
   color: $grey;
+  text-align: right;
+  padding-left: 48px;
 }

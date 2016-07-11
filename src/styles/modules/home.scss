@@ -1,7 +1,9 @@
+@import '~base/variables';
+
 .title {
-  color: rgba(77, 179, 255, 0.87);;
-  font-size: 24px;
+  color: $subtle-grey;
+  font-size: 12px;
   font-weight: 400;
-  margin: 60px 0 24px 0;
+  margin: 24px 0;
   text-align: center;
 }

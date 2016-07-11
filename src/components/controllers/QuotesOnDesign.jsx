@@ -15,7 +15,9 @@ class QuotesOnDesign extends React.Component {
     // Quotes on Design API v4.0
     const url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=24' // todo: make params into object literal
 
-    fetch(url)
+    fetch(url, {
+      mode: 'cors'
+    })
     .then(
       promise => promise.json()
       .then(
