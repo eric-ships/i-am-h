@@ -47,7 +47,7 @@
     "clean": "rm -rf dist",
     "git:add": "npm run build && git add .",
     "dev": "node devServer.js",
-    "start": "node server.js",
+    "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
