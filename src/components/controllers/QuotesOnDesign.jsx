@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Quotes from './Quotes'
+import Quote from 'ui/Quote/Quote'
 
-// todo: move fetch logic here and make this a container?
+// todo: move fetch logic here
 
 const QuotesOnDesign = () => {
   return (
     <svg width="96%" height="88" style={{ fontSize: 12 + 'px' }}>
-      <Quotes x={50} y={50}/>
+      <Quote x={50} y={50}/>
     </svg>
   )
 }

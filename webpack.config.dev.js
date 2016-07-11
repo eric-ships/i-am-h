@@ -33,6 +33,12 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      composers: path.join(__dirname, '/src/styles/composers'),
+      controllers: path.join(__dirname, '/src/components/controllers'),
+      modules: path.join(__dirname, '/src/styles/modules'),
+      ui: path.join(__dirname, '/src/components/ui')
+    },
     extensions: ['', '.js', '.jsx', '.scss'],
     root: path.resolve('src')
   }

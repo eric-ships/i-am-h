@@ -1,7 +1,7 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
-import styles from 'styles/page'
+import styles from 'modules/page'
 
 class Page extends React.Component {
   render() {

@@ -39,13 +39,14 @@ Other versions are untested at this time, let me know issues or bugs.
 
 ###### Production
 
-* [ES7](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
-* [React](https://facebook.github.io/react/)
 * [Babel](https://babeljs.io/)
-* [Redux](https://github.com/reactjs/redux)
-* [React-Router](https://github.com/reactjs/react-router)
+* [ES7](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
+* [React-CSS-Modules](https://github.com/gajus/react-css-modules)
 * [React-Redux-Router](https://github.com/reactjs/react-router-redux)
+* [React-Router](https://github.com/reactjs/react-router)
 * [React-Thunk](https://github.com/gaearon/redux-thunk)
+* [React](https://facebook.github.io/react/)
+* [Redux](https://github.com/reactjs/redux)
 * [Webpack](https://webpack.github.io/)
 
 ###### Development

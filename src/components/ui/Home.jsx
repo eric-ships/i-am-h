@@ -1,10 +1,11 @@
 import CSSModules from 'react-css-modules'
 import React from 'react'
 
-import QuotesOnDesign from 'components/QuotesOnDesign/QuotesOnDesign'
-import AddMessage from 'containers/AddMessage'
-import Messages from 'containers/Messages'
-import styles from 'styles/home'
+import QuotesOnDesign from 'controllers/QuotesOnDesign'
+import AddMessage from 'controllers/AddMessage'
+import Messages from 'controllers/Messages'
+
+import styles from 'modules/home'
 
 class Home extends React.Component {
   render() {

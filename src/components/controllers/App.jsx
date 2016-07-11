@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 // import * as messageActionCreators from 'actions/messageActionCreators'
 
-import Page from 'components/page'
+import Page from 'ui/page'
 
 const mapStateToProps = () => {
   return {

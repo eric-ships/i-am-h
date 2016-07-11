@@ -4,8 +4,8 @@ import { IndexRoute, Route, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 
-import App from 'containers/App'
-import Home from 'components/Home'
+import App from 'controllers/App'
+import Home from 'ui/Home'
 
 const router = (
   <Provider store={store}>

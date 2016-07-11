@@ -12,7 +12,8 @@ app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
   stats: {
-    chunks: false
+    chunks: false,
+    colors: true
   }
 }));
 
