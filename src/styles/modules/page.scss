@@ -1,17 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400');
-
-* {
-  // cursor: none;
-}
+@import '~base/variables';
+@import '~base/globals';
 
 body {
-  background-color: white;
-  color: rgba(0, 0, 0, 0.87);
-  font-family: 'Assistant', sans-serif;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+  background-color: #fafafa;
+  color: $black;
+  font-family: $font-h;
+  font-size: 16px;
 }

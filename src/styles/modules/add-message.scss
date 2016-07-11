@@ -1,4 +1,6 @@
-.addMessage {
+@import '~base/variables';
+
+.addmessage {
   margin: 24px 0 0 0;
 }
 
@@ -9,6 +11,7 @@
 
 .input {
   display: block;
+  font-family: $font-default;
   font-size: 14px;
   font-weight: 400;
   background-color: transparent;
@@ -16,8 +19,8 @@
   border-left: none;
   border-right: none;
   border-top: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.87);
-  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 1px solid $grey;
+  color: $grey;
   height: 24px;
   margin: 0 auto 10px auto;
   text-align: center;

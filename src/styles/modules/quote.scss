@@ -1,0 +1,10 @@
+@import '~base/variables';
+
+.quote {
+  display: block;
+  width: 88%;
+  color: $subtle-grey;
+  font-size: 12px;
+  font-family: $font-fixed;
+  margin: 0 auto;
+}

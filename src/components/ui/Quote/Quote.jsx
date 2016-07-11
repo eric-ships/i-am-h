@@ -1,11 +1,15 @@
+import CSSModules from 'react-css-modules'
 import React, { Component } from 'react'
 import ReactTransitionGroup from 'react-addons-transition-group'
-import { shuffle } from 'd3-array'
 import { interval } from 'd3-timer'
+import { shuffle } from 'd3-array'
 
 import Letter from './Letter'
 
-class Quotes extends Component {
+import styles from 'modules/quote'
+
+class Quote extends Component {
+  // todo: move quotes fetch into controller
   state = {
     quotes: [],
     current: []
@@ -75,13 +79,15 @@ class Quotes extends Component {
     let transform = `translate(${this.props.x}, ${this.props.y})`
 
     return (
-      <g transform={transform}>
-        <ReactTransitionGroup component="g">
-          {this.renderLetters()}
-        </ReactTransitionGroup>
-      </g>
+      <svg styleName='quote'>
+        <g transform={transform}>
+          <ReactTransitionGroup component="g">
+            {this.renderLetters()}
+          </ReactTransitionGroup>
+        </g>
+      </svg>
     )
   }
 }
 
-export default Quotes
+export default CSSModules(Quote, styles)

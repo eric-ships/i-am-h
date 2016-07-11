@@ -28617,13 +28617,9 @@
 	var mapStateToProps = function mapStateToProps() {
 	  return {};
 	};
-	// todo for active dashboard el
-	// import { bindActionCreators } from 'redux'
-	// import * as messageActionCreators from 'actions/messageActionCreators'
 	
 	var mapDispatchToProps = function mapDispatchToProps() {
 	  return {};
-	  // return bindActionCreators(messageActionCreators, dispatch)
 	};
 	
 	var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_page2.default);
@@ -45771,8 +45767,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./page.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./page.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./page.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./page.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45787,10 +45783,10 @@
 
 	exports = module.exports = __webpack_require__(279)();
 	// imports
-	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400);", ""]);
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, "body {\n  background-color: white;\n  color: rgba(0, 0, 0, 0.87);\n  font-family: 'Assistant', sans-serif; }\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/page.scss"],"names":[],"mappings":"AAMA;EACE,wBAAwB;EACxB,2BAAW;EACX,qCAAqC,EACtC;;AAED;EACE,UAAU;EACV,WAAW;EACX,sBAAsB,EACvB","file":"page.scss","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400');\n\n* {\n  // cursor: none;\n}\n\nbody {\n  background-color: white;\n  color: rgba(0, 0, 0, 0.87);\n  font-family: 'Assistant', sans-serif;\n}\n\nul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none; }\n\nbody {\n  background-color: #fafafa;\n  color: rgba(0, 0, 0, 0.87);\n  font-family: \"Assistant\", sans-serif;\n  font-size: 16px; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/base/globals.scss","/./src/styles/modules/src/styles/modules/page.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAAA;EACE,UAAU;EACV,WAAW;EACX,sBAAsB,EACvB;;ACDD;EACE,0BAA0B;EAC1B,2BCCU;EDAV,qCCF8B;EDG9B,gBAAgB,EACjB","file":"page.scss","sourcesContent":[":global ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n","@import '~base/variables';\n@import '~base/globals';\n\nbody {\n  background-color: #fafafa;\n  color: $black;\n  font-family: $font-h;\n  font-size: 16px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -46127,15 +46123,15 @@
 	
 	var _QuotesOnDesign2 = _interopRequireDefault(_QuotesOnDesign);
 	
-	var _AddMessage = __webpack_require__(296);
+	var _AddMessage = __webpack_require__(298);
 	
 	var _AddMessage2 = _interopRequireDefault(_AddMessage);
 	
-	var _Messages = __webpack_require__(300);
+	var _Messages = __webpack_require__(302);
 	
 	var _Messages2 = _interopRequireDefault(_Messages);
 	
-	var _home = __webpack_require__(304);
+	var _home = __webpack_require__(307);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
@@ -46163,11 +46159,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_QuotesOnDesign2.default, null),
-	        _react2.default.createElement(
-	          'h1',
-	          { styleName: 'title' },
-	          'I am H'
-	        ),
+	        _react2.default.createElement('h1', { styleName: 'title' }),
 	        _react2.default.createElement(_Messages2.default, null),
 	        _react2.default.createElement(_AddMessage2.default, null)
 	      );
@@ -46193,20 +46185,16 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Quotes = __webpack_require__(283);
+	var _Quote = __webpack_require__(283);
 	
-	var _Quotes2 = _interopRequireDefault(_Quotes);
+	var _Quote2 = _interopRequireDefault(_Quote);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// todo: move fetch logic here and make this a container?
+	// todo: move fetch logic here
 	
 	var QuotesOnDesign = function QuotesOnDesign() {
-	  return _react2.default.createElement(
-	    'svg',
-	    { width: '96%', height: '88', style: { fontSize: 12 + 'px' } },
-	    _react2.default.createElement(_Quotes2.default, { x: 50, y: 50 })
-	  );
+	  return _react2.default.createElement(_Quote2.default, { x: 12, y: 48 });
 	};
 	
 	exports.default = QuotesOnDesign;
@@ -46223,6 +46211,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _reactCssModules = __webpack_require__(265);
+	
+	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -46231,13 +46223,17 @@
 	
 	var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
 	
-	var _d3Array = __webpack_require__(287);
+	var _d3Timer = __webpack_require__(287);
 	
-	var _d3Timer = __webpack_require__(288);
+	var _d3Array = __webpack_require__(288);
 	
 	var _Letter = __webpack_require__(289);
 	
 	var _Letter2 = _interopRequireDefault(_Letter);
+	
+	var _quote = __webpack_require__(296);
+	
+	var _quote2 = _interopRequireDefault(_quote);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -46247,27 +46243,29 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Quotes = function (_Component) {
-	  _inherits(Quotes, _Component);
+	var Quote = function (_Component) {
+	  _inherits(Quote, _Component);
 	
-	  function Quotes() {
+	  function Quote() {
 	    var _Object$getPrototypeO;
 	
 	    var _temp, _this, _ret;
 	
-	    _classCallCheck(this, Quotes);
+	    _classCallCheck(this, Quote);
 	
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Quotes)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Quote)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
 	      quotes: [],
 	      current: []
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
+	  // todo: move quotes fetch into controller
 	
-	  _createClass(Quotes, [{
+	
+	  _createClass(Quote, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.getQuotes();
@@ -46338,21 +46336,25 @@
 	      var transform = 'translate(' + this.props.x + ', ' + this.props.y + ')';
 	
 	      return _react2.default.createElement(
-	        'g',
-	        { transform: transform },
+	        'svg',
+	        { styleName: 'quote' },
 	        _react2.default.createElement(
-	          _reactAddonsTransitionGroup2.default,
-	          { component: 'g' },
-	          this.renderLetters()
+	          'g',
+	          { transform: transform },
+	          _react2.default.createElement(
+	            _reactAddonsTransitionGroup2.default,
+	            { component: 'g' },
+	            this.renderLetters()
+	          )
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return Quotes;
+	  return Quote;
 	}(_react.Component);
 	
-	exports.default = Quotes;
+	exports.default = (0, _reactCssModules2.default)(Quote, _quote2.default);
 
 /***/ },
 /* 284 */
@@ -46723,6 +46725,161 @@
 
 /***/ },
 /* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// https://d3js.org/d3-timer/ Version 1.0.0. Copyright 2016 Mike Bostock.
+	(function (global, factory) {
+	   true ? factory(exports) :
+	  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	  (factory((global.d3 = global.d3 || {})));
+	}(this, function (exports) { 'use strict';
+	
+	  var frame = 0;
+	  var timeout = 0;
+	  var interval = 0;
+	  var pokeDelay = 1000;
+	  var taskHead;
+	  var taskTail;
+	  var clockLast = 0;
+	  var clockNow = 0;
+	  var clockSkew = 0;
+	  var clock = typeof performance === "object" ? performance : Date;
+	  var setFrame = typeof requestAnimationFrame === "function"
+	          ? (clock === Date ? function(f) { requestAnimationFrame(function() { f(clock.now()); }); } : requestAnimationFrame)
+	          : function(f) { setTimeout(f, 17); };
+	  function now() {
+	    return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew);
+	  }
+	
+	  function clearNow() {
+	    clockNow = 0;
+	  }
+	
+	  function Timer() {
+	    this._call =
+	    this._time =
+	    this._next = null;
+	  }
+	
+	  Timer.prototype = timer.prototype = {
+	    constructor: Timer,
+	    restart: function(callback, delay, time) {
+	      if (typeof callback !== "function") throw new TypeError("callback is not a function");
+	      time = (time == null ? now() : +time) + (delay == null ? 0 : +delay);
+	      if (!this._next && taskTail !== this) {
+	        if (taskTail) taskTail._next = this;
+	        else taskHead = this;
+	        taskTail = this;
+	      }
+	      this._call = callback;
+	      this._time = time;
+	      sleep();
+	    },
+	    stop: function() {
+	      if (this._call) {
+	        this._call = null;
+	        this._time = Infinity;
+	        sleep();
+	      }
+	    }
+	  };
+	
+	  function timer(callback, delay, time) {
+	    var t = new Timer;
+	    t.restart(callback, delay, time);
+	    return t;
+	  }
+	
+	  function timerFlush() {
+	    now(); // Get the current time, if not already set.
+	    ++frame; // Pretend we’ve set an alarm, if we haven’t already.
+	    var t = taskHead, e;
+	    while (t) {
+	      if ((e = clockNow - t._time) >= 0) t._call.call(null, e);
+	      t = t._next;
+	    }
+	    --frame;
+	  }
+	
+	  function wake(time) {
+	    clockNow = (clockLast = time || clock.now()) + clockSkew;
+	    frame = timeout = 0;
+	    try {
+	      timerFlush();
+	    } finally {
+	      frame = 0;
+	      nap();
+	      clockNow = 0;
+	    }
+	  }
+	
+	  function poke() {
+	    var now = clock.now(), delay = now - clockLast;
+	    if (delay > pokeDelay) clockSkew -= delay, clockLast = now;
+	  }
+	
+	  function nap() {
+	    var t0, t1 = taskHead, t2, time = Infinity;
+	    while (t1) {
+	      if (t1._call) {
+	        if (time > t1._time) time = t1._time;
+	        t0 = t1, t1 = t1._next;
+	      } else {
+	        t2 = t1._next, t1._next = null;
+	        t1 = t0 ? t0._next = t2 : taskHead = t2;
+	      }
+	    }
+	    taskTail = t0;
+	    sleep(time);
+	  }
+	
+	  function sleep(time) {
+	    if (frame) return; // Soonest alarm already set, or will be.
+	    if (timeout) timeout = clearTimeout(timeout);
+	    var delay = time - clockNow;
+	    if (delay > 24) {
+	      if (time < Infinity) timeout = setTimeout(wake, delay);
+	      if (interval) interval = clearInterval(interval);
+	    } else {
+	      if (!interval) interval = setInterval(poke, pokeDelay);
+	      frame = 1, setFrame(wake);
+	    }
+	  }
+	
+	  function timeout$1(callback, delay, time) {
+	    var t = new Timer;
+	    delay = delay == null ? 0 : +delay;
+	    t.restart(function(elapsed) {
+	      t.stop();
+	      callback(elapsed + delay);
+	    }, delay, time);
+	    return t;
+	  }
+	
+	  function interval$1(callback, delay, time) {
+	    var t = new Timer, total = delay;
+	    if (delay == null) return t.restart(callback, delay, time), t;
+	    delay = +delay, time = time == null ? now() : +time;
+	    t.restart(function tick(elapsed) {
+	      elapsed += total;
+	      t.restart(tick, total += delay, time);
+	      callback(elapsed);
+	    }, delay, time);
+	    return t;
+	  }
+	
+	  exports.now = now;
+	  exports.timer = timer;
+	  exports.timerFlush = timerFlush;
+	  exports.timeout = timeout$1;
+	  exports.interval = interval$1;
+	
+	  Object.defineProperty(exports, '__esModule', { value: true });
+	
+	}));
+
+/***/ },
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://d3js.org/d3-array/ Version 1.0.0. Copyright 2016 Mike Bostock.
@@ -47191,161 +47348,6 @@
 	}));
 
 /***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// https://d3js.org/d3-timer/ Version 1.0.0. Copyright 2016 Mike Bostock.
-	(function (global, factory) {
-	   true ? factory(exports) :
-	  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	  (factory((global.d3 = global.d3 || {})));
-	}(this, function (exports) { 'use strict';
-	
-	  var frame = 0;
-	  var timeout = 0;
-	  var interval = 0;
-	  var pokeDelay = 1000;
-	  var taskHead;
-	  var taskTail;
-	  var clockLast = 0;
-	  var clockNow = 0;
-	  var clockSkew = 0;
-	  var clock = typeof performance === "object" ? performance : Date;
-	  var setFrame = typeof requestAnimationFrame === "function"
-	          ? (clock === Date ? function(f) { requestAnimationFrame(function() { f(clock.now()); }); } : requestAnimationFrame)
-	          : function(f) { setTimeout(f, 17); };
-	  function now() {
-	    return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew);
-	  }
-	
-	  function clearNow() {
-	    clockNow = 0;
-	  }
-	
-	  function Timer() {
-	    this._call =
-	    this._time =
-	    this._next = null;
-	  }
-	
-	  Timer.prototype = timer.prototype = {
-	    constructor: Timer,
-	    restart: function(callback, delay, time) {
-	      if (typeof callback !== "function") throw new TypeError("callback is not a function");
-	      time = (time == null ? now() : +time) + (delay == null ? 0 : +delay);
-	      if (!this._next && taskTail !== this) {
-	        if (taskTail) taskTail._next = this;
-	        else taskHead = this;
-	        taskTail = this;
-	      }
-	      this._call = callback;
-	      this._time = time;
-	      sleep();
-	    },
-	    stop: function() {
-	      if (this._call) {
-	        this._call = null;
-	        this._time = Infinity;
-	        sleep();
-	      }
-	    }
-	  };
-	
-	  function timer(callback, delay, time) {
-	    var t = new Timer;
-	    t.restart(callback, delay, time);
-	    return t;
-	  }
-	
-	  function timerFlush() {
-	    now(); // Get the current time, if not already set.
-	    ++frame; // Pretend we’ve set an alarm, if we haven’t already.
-	    var t = taskHead, e;
-	    while (t) {
-	      if ((e = clockNow - t._time) >= 0) t._call.call(null, e);
-	      t = t._next;
-	    }
-	    --frame;
-	  }
-	
-	  function wake(time) {
-	    clockNow = (clockLast = time || clock.now()) + clockSkew;
-	    frame = timeout = 0;
-	    try {
-	      timerFlush();
-	    } finally {
-	      frame = 0;
-	      nap();
-	      clockNow = 0;
-	    }
-	  }
-	
-	  function poke() {
-	    var now = clock.now(), delay = now - clockLast;
-	    if (delay > pokeDelay) clockSkew -= delay, clockLast = now;
-	  }
-	
-	  function nap() {
-	    var t0, t1 = taskHead, t2, time = Infinity;
-	    while (t1) {
-	      if (t1._call) {
-	        if (time > t1._time) time = t1._time;
-	        t0 = t1, t1 = t1._next;
-	      } else {
-	        t2 = t1._next, t1._next = null;
-	        t1 = t0 ? t0._next = t2 : taskHead = t2;
-	      }
-	    }
-	    taskTail = t0;
-	    sleep(time);
-	  }
-	
-	  function sleep(time) {
-	    if (frame) return; // Soonest alarm already set, or will be.
-	    if (timeout) timeout = clearTimeout(timeout);
-	    var delay = time - clockNow;
-	    if (delay > 24) {
-	      if (time < Infinity) timeout = setTimeout(wake, delay);
-	      if (interval) interval = clearInterval(interval);
-	    } else {
-	      if (!interval) interval = setInterval(poke, pokeDelay);
-	      frame = 1, setFrame(wake);
-	    }
-	  }
-	
-	  function timeout$1(callback, delay, time) {
-	    var t = new Timer;
-	    delay = delay == null ? 0 : +delay;
-	    t.restart(function(elapsed) {
-	      t.stop();
-	      callback(elapsed + delay);
-	    }, delay, time);
-	    return t;
-	  }
-	
-	  function interval$1(callback, delay, time) {
-	    var t = new Timer, total = delay;
-	    if (delay == null) return t.restart(callback, delay, time), t;
-	    delay = +delay, time = time == null ? now() : +time;
-	    t.restart(function tick(elapsed) {
-	      elapsed += total;
-	      t.restart(tick, total += delay, time);
-	      callback(elapsed);
-	    }, delay, time);
-	    return t;
-	  }
-	
-	  exports.now = now;
-	  exports.timer = timer;
-	  exports.timerFlush = timerFlush;
-	  exports.timeout = timeout$1;
-	  exports.interval = interval$1;
-	
-	  Object.defineProperty(exports, '__esModule', { value: true });
-	
-	}));
-
-/***/ },
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -47410,8 +47412,8 @@
 	
 	      this.setState({ x: this.props.i * 8 });
 	
-	      node.transition(this.transition).attr('y', 0).style('fill-opacity', 1).on('end', function () {
-	        _this2.setState({ y: 0, fillOpacity: 1 });
+	      node.transition(this.transition).attr('y', 0).style('fill-opacity', 0.38).on('end', function () {
+	        _this2.setState({ y: 0, fillOpacity: 0.38 });
 	        callback();
 	      });
 	    }
@@ -48712,7 +48714,7 @@
 
 	// https://d3js.org/d3-transition/ Version 1.0.0. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(290), __webpack_require__(293), __webpack_require__(288), __webpack_require__(294), __webpack_require__(295), __webpack_require__(291)) :
+	   true ? factory(exports, __webpack_require__(290), __webpack_require__(293), __webpack_require__(287), __webpack_require__(294), __webpack_require__(295), __webpack_require__(291)) :
 	  typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-dispatch', 'd3-timer', 'd3-interpolate', 'd3-color', 'd3-ease'], factory) :
 	  (factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
 	}(this, function (exports,d3Selection,d3Dispatch,d3Timer,d3Interpolate,d3Color,d3Ease) { 'use strict';
@@ -50646,6 +50648,48 @@
 /* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(297);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {"sourceMap":true});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./quote.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./quote.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
+	
+	// module
+	exports.push([module.id, ".quote__quote___2lkUO {\n  display: block;\n  width: 88%;\n  color: rgba(0, 0, 0, 0.38);\n  font-size: 12px;\n  font-family: \"Inconsolata\", monospace;\n  margin: 0 auto; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/quote.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,eAAe;EACf,WAAW;EACX,2BCGgB;EDFhB,gBAAgB;EAChB,sCCJmC;EDKnC,eAAe,EAChB","file":"quote.scss","sourcesContent":["@import '~base/variables';\n\n.quote {\n  display: block;\n  width: 88%;\n  color: $subtle-grey;\n  font-size: 12px;\n  font-family: $font-fixed;\n  margin: 0 auto;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"quote": "quote__quote___2lkUO"
+	};
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -50658,13 +50702,15 @@
 	
 	var _reactRedux = __webpack_require__(117);
 	
-	var _messageActionCreators = __webpack_require__(297);
+	var _messageActionCreators = __webpack_require__(299);
 	
-	var _addMessage = __webpack_require__(298);
+	var _addMessage = __webpack_require__(300);
 	
 	var _addMessage2 = _interopRequireDefault(_addMessage);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// todo extract out ui
 	
 	var AddMessage = function AddMessage(_ref) {
 	  var dispatch = _ref.dispatch;
@@ -50689,7 +50735,7 @@
 	
 	  return _react2.default.createElement(
 	    'div',
-	    { className: _addMessage2.default.addMessage },
+	    { className: _addMessage2.default.addmessage },
 	    _react2.default.createElement(
 	      'form',
 	      { className: _addMessage2.default.form, onSubmit: onSubmit },
@@ -50713,7 +50759,7 @@
 	exports.default = AddMessage;
 
 /***/ },
-/* 297 */
+/* 299 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50810,13 +50856,13 @@
 	exports.sendMessage = sendMessage;
 
 /***/ },
-/* 298 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(299);
+	var content = __webpack_require__(301);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -50825,8 +50871,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./add-message.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./add-message.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./add-message.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./add-message.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50836,26 +50882,26 @@
 	}
 
 /***/ },
-/* 299 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
 	// imports
-	
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".add-message__addMessage___39FDf {\n  margin: 24px 0 0 0; }\n\n.add-message__form___3AX_E {\n  margin: 0;\n  text-align: center; }\n\n.add-message__input___3MlGy {\n  display: block;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.87);\n  color: rgba(0, 0, 0, 0.87);\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px; }\n\n.add-message__button___iac3v {\n  display: none; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/add-message.scss"],"names":[],"mappings":"AAAA;EACE,mBAAmB,EACpB;;AAED;EACE,UAAU;EACV,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,6CAA6B;EAC7B,2BAAW;EACX,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,cAAc,EACf","file":"add-message.scss","sourcesContent":[".addMessage {\n  margin: 24px 0 0 0;\n}\n\n.form {\n  margin: 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.87);\n  color: rgba(0, 0, 0, 0.87);\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px;\n}\n\n.button {\n  display: none;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".add-message__addmessage___3aM4n {\n  margin: 24px 0 0 0; }\n\n.add-message__form___2RemC {\n  margin: 0;\n  text-align: center; }\n\n.add-message__input___2sHYi {\n  display: block;\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.54);\n  color: rgba(0, 0, 0, 0.54);\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px; }\n\n.add-message__button___8bJMv {\n  display: none; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/add-message.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,mBAAmB,EACpB;;AAED;EACE,UAAU;EACV,mBAAmB,EACpB;;AAED;EACE,eAAe;EACf,qCCXoC;EDYpC,gBAAgB;EAChB,iBAAiB;EACjB,8BAA8B;EAC9B,cAAc;EACd,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB;EACjB,6CCdS;EDeT,2BCfS;EDgBT,aAAa;EACb,yBAAyB;EACzB,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,cAAc,EACf","file":"add-message.scss","sourcesContent":["@import '~base/variables';\n\n.addmessage {\n  margin: 24px 0 0 0;\n}\n\n.form {\n  margin: 0;\n  text-align: center;\n}\n\n.input {\n  display: block;\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  background-color: transparent;\n  outline: none;\n  border-left: none;\n  border-right: none;\n  border-top: none;\n  border-bottom: 1px solid $grey;\n  color: $grey;\n  height: 24px;\n  margin: 0 auto 10px auto;\n  text-align: center;\n  width: 144px;\n}\n\n.button {\n  display: none;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
-		"addMessage": "add-message__addMessage___39FDf",
-		"form": "add-message__form___3AX_E",
-		"input": "add-message__input___3MlGy",
-		"button": "add-message__button___iac3v"
+		"addmessage": "add-message__addmessage___3aM4n",
+		"form": "add-message__form___2RemC",
+		"input": "add-message__input___2sHYi",
+		"button": "add-message__button___8bJMv"
 	};
 
 /***/ },
-/* 300 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50866,7 +50912,7 @@
 	
 	var _reactRedux = __webpack_require__(117);
 	
-	var _MessagesList = __webpack_require__(301);
+	var _MessagesList = __webpack_require__(303);
 	
 	var _MessagesList2 = _interopRequireDefault(_MessagesList);
 	
@@ -50881,9 +50927,6 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    dispatch: dispatch
-	    // onTodoClick: (id) => {
-	    //   dispatch(toggleTodo(id))
-	    // }
 	  };
 	};
 	
@@ -50892,7 +50935,7 @@
 	exports.default = Messages;
 
 /***/ },
-/* 301 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50909,7 +50952,7 @@
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _messagesList = __webpack_require__(302);
+	var _messagesList = __webpack_require__(304);
 	
 	var _messagesList2 = _interopRequireDefault(_messagesList);
 	
@@ -50933,49 +50976,6 @@
 	exports.default = (0, _reactCssModules2.default)(MessagesList, _messagesList2.default);
 
 /***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(303);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(280)(content, {"sourceMap":true});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./messages-list.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./messages-list.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(279)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".messages-list__message___d56e7 {\n  color: #7ac6ff;\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n\n.messages-list__message--from-user___N1zgs {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/messages-list.scss"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd;;AAED;EACE,2BAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"messages-list.scss","sourcesContent":[".message {\n  color: #7ac6ff;\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n\n.message--from-user {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n"],"sourceRoot":"webpack://"}]);
-	
-	// exports
-	exports.locals = {
-		"message": "messages-list__message___d56e7",
-		"message--from-user": "messages-list__message--from-user___N1zgs"
-	};
-
-/***/ },
 /* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -50991,8 +50991,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./home.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../node_modules/sass-loader/index.js?sourceMap!./home.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./messages-list.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./messages-list.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51007,14 +51007,74 @@
 
 	exports = module.exports = __webpack_require__(279)();
 	// imports
-	
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
+	exports.i(__webpack_require__(306), undefined);
 	
 	// module
-	exports.push([module.id, ".home__title___2CDoZ {\n  color: rgba(77, 179, 255, 0.87);\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/src/styles/home.scss"],"names":[],"mappings":"AAAA;EACE,gCAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,sBAAsB;EACtB,mBAAmB,EACpB","file":"home.scss","sourcesContent":[".title {\n  color: rgba(77, 179, 255, 0.87);;\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87); }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU,EDDX;;AAED;EACE,2BCDS;EDET,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n}\n\n.message--from-user {\n  color: $grey;\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
-		"title": "home__title___2CDoZ"
+		"message": "messages-list__message___3JvSI " + __webpack_require__(306).locals["message"] + "",
+		"message--from-user": "messages-list__message--from-user___1QIex"
+	};
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
+	
+	// module
+	exports.push([module.id, ".message__message___2EutC {\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/composers/src/styles/composers/message.scss","/./src/styles/composers/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,qCCDoC;EDEpC,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"message.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"message": "message__message___2EutC"
+	};
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(308);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {"sourceMap":true});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./home.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./../../../node_modules/sass-loader/index.js?sourceMap!./home.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".home__title___26Hpx {\n  color: rgba(77, 179, 255, 0.87);\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/home.scss"],"names":[],"mappings":"AAAA;EACE,gCAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,sBAAsB;EACtB,mBAAmB,EACpB","file":"home.scss","sourcesContent":[".title {\n  color: rgba(77, 179, 255, 0.87);;\n  font-size: 24px;\n  font-weight: 400;\n  margin: 60px 0 24px 0;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"title": "home__title___26Hpx"
 	};
 
 /***/ }

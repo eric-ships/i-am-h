@@ -21,6 +21,7 @@ Other versions are untested at this time, let me know issues or bugs.
 
 * Assets versioning
 * Minify, extract css out for prod
+* Normalize css
 * Add immutability
 * Simple third-party API integration such as OS X Notes
 * Testing - babel-jest?, mocha?, karma?

@@ -4,6 +4,8 @@ import { sendMessage } from 'actions/messageActionCreators'
 
 import styles from 'modules/add-message'
 
+// todo extract out ui
+
 let AddMessage = ({ dispatch }) => {
   let input
 
@@ -24,7 +26,7 @@ let AddMessage = ({ dispatch }) => {
   }
 
   return (
-    <div className={styles.addMessage}>
+    <div className={styles.addmessage}>
       <form className={styles.form} onSubmit={onSubmit}>
         <input className={styles.input}
           ref={node => { input = node }}

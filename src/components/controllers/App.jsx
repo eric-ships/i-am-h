@@ -1,18 +1,13 @@
 import { connect } from 'react-redux'
-// todo for active dashboard el
-// import { bindActionCreators } from 'redux'
-// import * as messageActionCreators from 'actions/messageActionCreators'
 
 import Page from 'ui/page'
 
 const mapStateToProps = () => {
-  return {
-  }
+  return {}
 }
 
 const mapDispatchToProps = () => {
   return {}
-  // return bindActionCreators(messageActionCreators, dispatch)
 }
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Page)

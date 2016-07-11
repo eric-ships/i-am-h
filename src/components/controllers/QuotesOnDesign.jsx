@@ -6,9 +6,7 @@ import Quote from 'ui/Quote/Quote'
 
 const QuotesOnDesign = () => {
   return (
-    <svg width="96%" height="88" style={{ fontSize: 12 + 'px' }}>
-      <Quote x={50} y={50}/>
-    </svg>
+    <Quote x={12} y={48}/>
   )
 }
 

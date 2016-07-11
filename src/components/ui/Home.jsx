@@ -13,7 +13,7 @@ class Home extends React.Component {
       <div>
         <QuotesOnDesign />
         <h1 styleName='title'>
-          I am H
+
         </h1>
         <Messages />
         <AddMessage />

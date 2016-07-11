@@ -23,9 +23,9 @@ class Letter extends Component {
 
     node.transition(this.transition)
         .attr('y', 0)
-        .style('fill-opacity', 1)
+        .style('fill-opacity', 0.38)
         .on('end', () => {
-          this.setState({ y: 0, fillOpacity: 1 })
+          this.setState({ y: 0, fillOpacity: 0.38 })
           callback()
         })
   }
