@@ -1,5 +1,5 @@
 import CSSModules from 'react-css-modules'
-import React, { Component } from 'react'
+import React from 'react'
 import ReactTransitionGroup from 'react-addons-transition-group'
 import { interval } from 'd3-timer'
 import { shuffle } from 'd3-array'
@@ -8,47 +8,54 @@ import Letter from './Letter'
 
 import styles from 'modules/quote'
 
-class Quote extends Component {
-  // todo: move quotes fetch into controller
+class Quote extends React.Component {
+  static propTypes = {
+    quotes: React.PropTypes.array
+  };
+
+  static defaultProps = {
+    quotes: []
+  };
+
   state = {
-    quotes: [],
     current: []
   }
 
   componentDidMount() {
-    this.getQuotes()
-    this.constantlyUpdateQuote()
+    if (this.props.quotes.length > 0) {
+      this.displayQuotes()
+    }
   }
 
-  constantlyUpdateQuote() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.quotes.length > 0) {
+      this.displayQuotes(nextProps.quotes)
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.current !== this.state.current
+  }
+
+  constantlyUpdateQuote(quotes) {
     interval(() => {
-      let q = shuffle(this.state.quotes)
-      let c = this.parseHTMLAndCreateCharArr(q[0].content)
-
+      // todo: make sure it can't be the same one again
       this.setState({
-        current: c
+        current: shuffle(quotes)[0].content
       })
-    }, 8000)
+    }, 4000)
   }
 
-  getQuotes() {
-    // Quotes on Design API v4.0
-    const url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=12' // todo: make params into object literal
+  displayQuotes(quotes) {
+    this.setState({
+      current: shuffle(quotes)[0].content
+    })
 
-    fetch(url)
-    .then(
-      promise => promise.json()
-      .then(
-        res => {
-          this.setState({
-            quotes: res
-          })
-        }
-      )
-    )
+    this.constantlyUpdateQuote(quotes)
   }
 
   parseHTMLAndCreateCharArr(html) {
+    // todo: parse quotes just once, instead of every state.current change?
     const htmlTags = /(<([^>]+)>)/ig
     const t = document.createElement('textarea')
 
@@ -58,11 +65,12 @@ class Quote extends Component {
   }
 
   renderLetters() {
+    const c = this.parseHTMLAndCreateCharArr(this.state.current)
     let nodes = []
     let counts = {}
     let key
 
-    this.state.current.map((d, i) => {
+    c.map((d, i) => {
       let count = counts[d] || 0
 
       count++
@@ -76,7 +84,7 @@ class Quote extends Component {
   }
 
   render() {
-    let transform = `translate(${this.props.x}, ${this.props.y})`
+    const transform = `translate(${this.props.x}, ${this.props.y})`
 
     return (
       <svg styleName='quote'>

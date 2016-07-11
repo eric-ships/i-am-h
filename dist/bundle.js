@@ -46181,6 +46181,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -46191,11 +46193,61 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// todo: move fetch logic here
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var QuotesOnDesign = function QuotesOnDesign() {
-	  return _react2.default.createElement(_Quote2.default, { x: 12, y: 48 });
-	};
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var QuotesOnDesign = function (_React$Component) {
+	  _inherits(QuotesOnDesign, _React$Component);
+	
+	  function QuotesOnDesign() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, QuotesOnDesign);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(QuotesOnDesign)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	      quotes: []
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(QuotesOnDesign, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getQuotes();
+	    }
+	  }, {
+	    key: 'getQuotes',
+	    value: function getQuotes() {
+	      var _this2 = this;
+	
+	      // Quotes on Design API v4.0
+	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=24'; // todo: make params into object literal
+	
+	      fetch(url).then(function (promise) {
+	        return promise.json().then(function (res) {
+	          _this2.setState({
+	            quotes: res
+	          });
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_Quote2.default, { quotes: this.state.quotes, x: 12, y: 48 });
+	    }
+	  }]);
+	
+	  return QuotesOnDesign;
+	}(_react2.default.Component);
 	
 	exports.default = QuotesOnDesign;
 
@@ -46243,8 +46295,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Quote = function (_Component) {
-	  _inherits(Quote, _Component);
+	var Quote = function (_React$Component) {
+	  _inherits(Quote, _React$Component);
 	
 	  function Quote() {
 	    var _Object$getPrototypeO;
@@ -46258,52 +46310,54 @@
 	    }
 	
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Quote)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      quotes: [],
 	      current: []
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	  // todo: move quotes fetch into controller
-	
 	
 	  _createClass(Quote, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getQuotes();
-	      this.constantlyUpdateQuote();
+	      if (this.props.quotes.length > 0) {
+	        this.displayQuotes();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.quotes.length > 0) {
+	        this.displayQuotes(nextProps.quotes);
+	      }
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      return nextState.current !== this.state.current;
 	    }
 	  }, {
 	    key: 'constantlyUpdateQuote',
-	    value: function constantlyUpdateQuote() {
+	    value: function constantlyUpdateQuote(quotes) {
 	      var _this2 = this;
 	
 	      (0, _d3Timer.interval)(function () {
-	        var q = (0, _d3Array.shuffle)(_this2.state.quotes);
-	        var c = _this2.parseHTMLAndCreateCharArr(q[0].content);
-	
+	        // todo: make sure it can't be the same one again
 	        _this2.setState({
-	          current: c
+	          current: (0, _d3Array.shuffle)(quotes)[0].content
 	        });
-	      }, 8000);
+	      }, 4000);
 	    }
 	  }, {
-	    key: 'getQuotes',
-	    value: function getQuotes() {
-	      var _this3 = this;
-	
-	      // Quotes on Design API v4.0
-	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=12'; // todo: make params into object literal
-	
-	      fetch(url).then(function (promise) {
-	        return promise.json().then(function (res) {
-	          _this3.setState({
-	            quotes: res
-	          });
-	        });
+	    key: 'displayQuotes',
+	    value: function displayQuotes(quotes) {
+	      this.setState({
+	        current: (0, _d3Array.shuffle)(quotes)[0].content
 	      });
+	
+	      this.constantlyUpdateQuote(quotes);
 	    }
 	  }, {
 	    key: 'parseHTMLAndCreateCharArr',
 	    value: function parseHTMLAndCreateCharArr(html) {
+	      // todo: parse quotes just once, instead of every state.current change?
 	      var htmlTags = /(<([^>]+)>)/ig;
 	      var t = document.createElement('textarea');
 	
@@ -46314,11 +46368,12 @@
 	  }, {
 	    key: 'renderLetters',
 	    value: function renderLetters() {
+	      var c = this.parseHTMLAndCreateCharArr(this.state.current);
 	      var nodes = [];
 	      var counts = {};
 	      var key = void 0;
 	
-	      this.state.current.map(function (d, i) {
+	      c.map(function (d, i) {
 	        var count = counts[d] || 0;
 	
 	        count++;
@@ -46352,8 +46407,14 @@
 	  }]);
 	
 	  return Quote;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
+	Quote.propTypes = {
+	  quotes: _react2.default.PropTypes.array
+	};
+	Quote.defaultProps = {
+	  quotes: []
+	};
 	exports.default = (0, _reactCssModules2.default)(Quote, _quote2.default);
 
 /***/ },
@@ -51011,12 +51072,12 @@
 	exports.i(__webpack_require__(306), undefined);
 	
 	// module
-	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87); }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU,EDDX;;AAED;EACE,2BCDS;EDET,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,mBAAmB;EACnB,aAAa,EACd","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n}\n\n.message--from-user {\n  color: $grey;\n  font-size: 16px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  text-align: center;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87); }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54); }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU,EDDX;;AAED;EAEE,2BCFS,EDGV","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n}\n\n.message--from-user {\n  composes: message from '../composers/message';\n  color: $grey;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
 		"message": "messages-list__message___3JvSI " + __webpack_require__(306).locals["message"] + "",
-		"message--from-user": "messages-list__message--from-user___1QIex"
+		"message--from-user": "messages-list__message--from-user___1QIex " + __webpack_require__(306).locals["message"] + ""
 	};
 
 /***/ },
