@@ -10,7 +10,7 @@ const initialState = {
     {
       id: 0,
       text: 'How are you today?',
-      fromUser: false
+      kind: 'h'
     }
   ]
 }
