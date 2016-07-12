@@ -28608,9 +28608,9 @@
 	
 	var _reactRedux = __webpack_require__(117);
 	
-	var _page = __webpack_require__(264);
+	var _Page = __webpack_require__(264);
 	
-	var _page2 = _interopRequireDefault(_page);
+	var _Page2 = _interopRequireDefault(_Page);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28622,7 +28622,7 @@
 	  return {};
 	};
 	
-	var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_page2.default);
+	var App = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Page2.default);
 	
 	exports.default = App;
 
@@ -46236,7 +46236,7 @@
 	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=24'; // todo: make params into object literal
 	
 	      fetch(url, {
-	        mode: 'cors'
+	        mode: 'no-cors'
 	      }).then(function (promise) {
 	        return promise.json().then(function (res) {
 	          _this2.setState({
@@ -46794,7 +46794,7 @@
 /* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// https://d3js.org/d3-timer/ Version 1.0.0. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-timer/ Version 1.0.1. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	   true ? factory(exports) :
 	  typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -46810,7 +46810,7 @@
 	  var clockLast = 0;
 	  var clockNow = 0;
 	  var clockSkew = 0;
-	  var clock = typeof performance === "object" ? performance : Date;
+	  var clock = typeof performance === "object" && performance.now ? performance : Date;
 	  var setFrame = typeof requestAnimationFrame === "function"
 	          ? (clock === Date ? function(f) { requestAnimationFrame(function() { f(clock.now()); }); } : requestAnimationFrame)
 	          : function(f) { setTimeout(f, 17); };
@@ -49658,7 +49658,7 @@
 /* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// https://d3js.org/d3-interpolate/ Version 1.0.0. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-interpolate/ Version 1.1.0. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	   true ? factory(exports, __webpack_require__(295)) :
 	  typeof define === 'function' && define.amd ? define(['exports', 'd3-color'], factory) :
@@ -49798,6 +49798,13 @@
 	    };
 	  }
 	
+	  function date(a, b) {
+	    var d = new Date;
+	    return a = +a, b -= a, function(t) {
+	      return d.setTime(a + b * t), d;
+	    };
+	  }
+	
 	  function number(a, b) {
 	    return a = +a, b -= a, function(t) {
 	      return a + b * t;
@@ -49894,8 +49901,10 @@
 	        : (t === "number" ? number
 	        : t === "string" ? ((c = d3Color.color(b)) ? (b = c, rgb$1) : string)
 	        : b instanceof d3Color.color ? rgb$1
+	        : b instanceof Date ? date
 	        : Array.isArray(b) ? array
-	        : object)(a, b);
+	        : isNaN(b) ? object
+	        : number)(a, b);
 	  }
 	
 	  function round(a, b) {
@@ -49941,15 +49950,17 @@
 	    cssNode.style.transform = value;
 	    value = cssView.getComputedStyle(cssRoot.appendChild(cssNode), null).getPropertyValue("transform");
 	    cssRoot.removeChild(cssNode);
-	    var m = value.slice(7, -1).split(",");
-	    return decompose(+m[0], +m[1], +m[2], +m[3], +m[4], +m[5]);
+	    value = value.slice(7, -1).split(",");
+	    return decompose(+value[0], +value[1], +value[2], +value[3], +value[4], +value[5]);
 	  }
 	
 	  function parseSvg(value) {
+	    if (value == null) return identity;
 	    if (!svgNode) svgNode = document.createElementNS("http://www.w3.org/2000/svg", "g");
-	    svgNode.setAttribute("transform", value == null ? "" : value);
-	    var m = svgNode.transform.baseVal.consolidate().matrix;
-	    return decompose(m.a, m.b, m.c, m.d, m.e, m.f);
+	    svgNode.setAttribute("transform", value);
+	    if (!(value = svgNode.transform.baseVal.consolidate())) return identity;
+	    value = value.matrix;
+	    return decompose(value.a, value.b, value.c, value.d, value.e, value.f);
 	  }
 	
 	  function interpolateTransform(parse, pxComma, pxParen, degParen) {
@@ -50156,9 +50167,9 @@
 	  var cubehelix$2 = cubehelix$1(hue);
 	  var cubehelixLong = cubehelix$1(nogamma);
 	
-	  function quantize(interpolate, n) {
+	  function quantize(interpolator, n) {
 	    var samples = new Array(n);
-	    for (var i = 0; i < n; ++i) samples[i] = interpolate(i / (n - 1));
+	    for (var i = 0; i < n; ++i) samples[i] = interpolator(i / (n - 1));
 	    return samples;
 	  }
 	
@@ -50166,6 +50177,7 @@
 	  exports.interpolateArray = array;
 	  exports.interpolateBasis = basis$1;
 	  exports.interpolateBasisClosed = basisClosed;
+	  exports.interpolateDate = date;
 	  exports.interpolateNumber = number;
 	  exports.interpolateObject = object;
 	  exports.interpolateRound = round;
