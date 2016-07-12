@@ -31,13 +31,13 @@ module.exports = {
   },
   resolve: {
     alias: {
-      base: path.join(__dirname, 'src/styles/base'),
-      composers: path.join(__dirname, 'src/styles/composers'),
-      controllers: path.join(__dirname, 'src/components/controllers'),
-      modules: path.join(__dirname, 'src/styles/modules'),
-      ui: path.join(__dirname, 'src/components/ui')
+      base: 'styles/base',
+      composers: 'styles/composers',
+      controllers: 'components/controllers',
+      modules: 'styles/modules',
+      ui: 'components/ui'
     },
     extensions: ['', '.js', '.jsx', '.scss'],
-    root: path.resolve('src')
+    root: path.resolve(__dirname, 'src')
   }
 }
