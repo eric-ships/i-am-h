@@ -21,7 +21,7 @@ class MessagesList extends React.Component {
   }
 
   appendRenderjsonOutput(node, json) {
-    if (node) {
+    if (node && !node.hasChildNodes()) {
       node.appendChild(
         Renderjson.set_icons('+', '-')
                   .set_show_to_level(2)(JSON.parse(json))

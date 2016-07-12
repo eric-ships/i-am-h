@@ -6,10 +6,9 @@ let nextMessageId = 1 // initial state starts at one
 
 function displayEric(dispatch) {
   fetch('http://ericliu121187.com/json', {
-      cache: 'no-cache',
-      mode: 'cors'
-    }
-  ).then(
+    cache: 'no-cache',
+    mode: 'cors'
+  }).then(
     promise => promise.json().then(
       json => {
         dispatch(addMessage(JSON.stringify(json, ' '), 'code')) // todo main display
@@ -27,9 +26,9 @@ const sendMessage = (text) => {
     if (stripped === 'help') {
 
       // todo: extract out canned responses
-      dispatch(addMessage('Unfortunately, I spent most of my time learning about NBA players...', 'h'))
-      dispatch(addMessage('I\'m trying my best', 'h'))
-      dispatch(addMessage('Here... Try typing in "eric"', 'h'))
+      dispatch(addMessage('I\'m currently studying famous people', 'h'))
+      dispatch(addMessage('So ask me about some!', 'h'))
+      dispatch(addMessage('Or here... Try typing in "eric"', 'h'))
       return
     }
 
