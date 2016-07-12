@@ -7,7 +7,7 @@ var webpack = require('webpack');
 var app = express();
 var compiler = webpack(config);
 
-app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'static','images','favicon.png')));
 
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
