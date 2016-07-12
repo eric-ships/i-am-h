@@ -4034,7 +4034,7 @@
 	  messages: [{
 	    id: 0,
 	    text: 'How are you today?',
-	    fromUser: false
+	    kind: 'h'
 	  }]
 	};
 	var store = (0, _redux.createStore)(_rootReducer2.default, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
@@ -10874,7 +10874,7 @@
 	      return [].concat(_toConsumableArray(state), [{
 	        id: action.id,
 	        text: action.text,
-	        fromUser: action.fromUser
+	        kind: action.kind
 	      }]);
 	    default:
 	      return state;
@@ -46131,7 +46131,7 @@
 	
 	var _Messages2 = _interopRequireDefault(_Messages);
 	
-	var _home = __webpack_require__(307);
+	var _home = __webpack_require__(308);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
@@ -46158,14 +46158,19 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_QuotesOnDesign2.default, null),
 	        _react2.default.createElement(
 	          'h1',
 	          { styleName: 'title' },
 	          'I am H, created by Eric Liu'
 	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: 'https://github.com/ericliu121187/i-am-h', target: '_blank', styleName: 'a' },
+	          'github'
+	        ),
 	        _react2.default.createElement(_Messages2.default, null),
-	        _react2.default.createElement(_AddMessage2.default, null)
+	        _react2.default.createElement(_AddMessage2.default, null),
+	        _react2.default.createElement(_QuotesOnDesign2.default, null)
 	      );
 	    }
 	  }]);
@@ -46236,7 +46241,8 @@
 	      var url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=24'; // todo: make params into object literal
 	
 	      fetch(url, {
-	        mode: 'no-cors'
+	        cache: 'no-cache',
+	        mode: 'cors'
 	      }).then(function (promise) {
 	        return promise.json().then(function (res) {
 	          _this2.setState({
@@ -46248,7 +46254,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_Quote2.default, { quotes: this.state.quotes, x: 48, y: 48 });
+	      return _react2.default.createElement(_Quote2.default, { quotes: this.state.quotes });
 	    }
 	  }]);
 	
@@ -46280,6 +46286,8 @@
 	var _reactAddonsTransitionGroup = __webpack_require__(284);
 	
 	var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+	
+	var _reactDom = __webpack_require__(124);
 	
 	var _d3Timer = __webpack_require__(287);
 	
@@ -46316,7 +46324,8 @@
 	    }
 	
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Quote)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      current: []
+	      current: [],
+	      width: 0
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
@@ -46347,7 +46356,8 @@
 	      (0, _d3Timer.interval)(function () {
 	        // todo: make sure it can't be the same one again
 	        _this2.setState({
-	          current: (0, _d3Array.shuffle)(quotes)[0].content
+	          current: (0, _d3Array.shuffle)(quotes)[0].content,
+	          width: (0, _reactDom.findDOMNode)(_this2).offsetWidth
 	        });
 	      }, 8000);
 	    }
@@ -46355,7 +46365,8 @@
 	    key: 'displayQuotes',
 	    value: function displayQuotes(quotes) {
 	      this.setState({
-	        current: (0, _d3Array.shuffle)(quotes)[0].content
+	        current: (0, _d3Array.shuffle)(quotes)[0].content,
+	        width: (0, _reactDom.findDOMNode)(this).offsetWidth
 	      });
 	
 	      this.constantlyUpdateQuote(quotes);
@@ -46374,22 +46385,58 @@
 	  }, {
 	    key: 'renderLetters',
 	    value: function renderLetters() {
+	      var _this3 = this;
+	
 	      var c = this.parseHTMLAndCreateCharArr(this.state.current);
+	      var lineX = 1;
+	      var lineY = 1;
 	      var nodes = [];
 	      var counts = {};
 	      var key = void 0;
 	
 	      c.map(function (d, i) {
+	        var newLine = void 0;
 	        var count = counts[d] || 0;
 	
-	        count++;
-	        counts[d] = count;
-	        key = d + '-' + count;
+	        if (d === ' ') {
+	          newLine = _this3.shouldBeNewLine(c, i, lineX);
+	        }
 	
-	        nodes.push(_react2.default.createElement(_Letter2.default, { d: d, i: i, key: '' + key }));
+	        if (newLine) {
+	          lineX = 1;
+	          lineY++;
+	        } else {
+	          lineX++;
+	          count++;
+	          counts[d] = count;
+	          key = d + '-' + count;
+	
+	          nodes.push(_react2.default.createElement(_Letter2.default, { d: d, key: '' + key, lineX: lineX, lineY: lineY }));
+	        }
 	      });
 	
 	      return nodes;
+	    }
+	  }, {
+	    key: 'shouldBeNewLine',
+	    value: function shouldBeNewLine(c, i, lineX) {
+	      var w = this.state.width;
+	      var x = lineX;
+	
+	      i++;
+	      x++;
+	      for (var j = i; j < c.length; j++) {
+	        if (c[j] === ' ') {
+	          if (x * 9.6 > w) {
+	            return true;
+	          }
+	          break;
+	        }
+	
+	        x++;
+	      }
+	
+	      return false;
 	    }
 	  }, {
 	    key: 'render',
@@ -46397,15 +46444,19 @@
 	      var transform = 'translate(' + this.props.x + ', ' + this.props.y + ')';
 	
 	      return _react2.default.createElement(
-	        'svg',
+	        'div',
 	        { styleName: 'quote' },
 	        _react2.default.createElement(
-	          'g',
-	          { transform: transform },
+	          'svg',
+	          { styleName: 'quote-svg' },
 	          _react2.default.createElement(
-	            _reactAddonsTransitionGroup2.default,
-	            { component: 'g' },
-	            this.renderLetters()
+	            'g',
+	            { transform: transform },
+	            _react2.default.createElement(
+	              _reactAddonsTransitionGroup2.default,
+	              { component: 'g' },
+	              this.renderLetters()
+	            )
 	          )
 	        )
 	      );
@@ -46416,10 +46467,14 @@
 	}(_react2.default.Component);
 	
 	Quote.propTypes = {
-	  quotes: _react2.default.PropTypes.array
+	  quotes: _react2.default.PropTypes.array,
+	  x: _react2.default.PropTypes.number,
+	  y: _react2.default.PropTypes.number
 	};
 	Quote.defaultProps = {
-	  quotes: []
+	  quotes: [],
+	  x: 48,
+	  y: 24
 	};
 	exports.default = (0, _reactCssModules2.default)(Quote, _quote2.default);
 
@@ -47477,10 +47532,10 @@
 	
 	      var node = (0, _d3Selection.select)(_reactDom2.default.findDOMNode(this));
 	
-	      this.setState({ x: this.props.i * 8 });
+	      this.setState({ x: this.props.lineX * 8 });
 	
-	      node.transition(this.transition).attr('y', 0).style('fill-opacity', 0.38).on('end', function () {
-	        _this2.setState({ y: 0, fillOpacity: 0.38 });
+	      node.transition(this.transition).attr('y', this.props.lineY * 14).style('fill-opacity', 0.38).on('end', function () {
+	        _this2.setState({ y: _this2.props.lineY * 14, fillOpacity: 0.38 });
 	        callback();
 	      });
 	    }
@@ -47503,16 +47558,14 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this4 = this;
 	
-	      if (this.props.i != nextProps.i) {
-	        if (this.props.i != nextProps.i) {
-	          var node = (0, _d3Selection.select)(_reactDom2.default.findDOMNode(this));
+	      if (this.props.lineX !== nextProps.lineX || this.props.lineY !== nextProps.lineY) {
+	        var node = (0, _d3Selection.select)(_reactDom2.default.findDOMNode(this));
 	
-	          this.setState({ className: 'update' });
+	        this.setState({ className: 'update' });
 	
-	          node.transition(this.transition).attr('x', nextProps.i * 8).on('end', function () {
-	            return _this4.setState({ x: nextProps.i * 8 });
-	          });
-	        }
+	        node.transition(this.transition).attr('x', nextProps.lineX * 8).attr('y', nextProps.lineY * 14).on('end', function () {
+	          return _this4.setState({ x: nextProps.lineX * 8, y: nextProps.lineY * 14 });
+	        });
 	      }
 	    }
 	  }, {
@@ -47534,6 +47587,11 @@
 	  return Letter;
 	}(_react.Component);
 	
+	Letter.propTypes = {
+	  d: _react2.default.PropTypes.string.isRequired,
+	  lineX: _react2.default.PropTypes.number.isRequired,
+	  lineY: _react2.default.PropTypes.number.isRequired
+	};
 	exports.default = Letter;
 
 /***/ },
@@ -50758,11 +50816,12 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".quote__quote___2lkUO {\n  bottom: 0;\n  color: rgba(0, 0, 0, 0.38);\n  display: block;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 12px;\n  height: 120px;\n  margin: 0 auto;\n  position: fixed;\n  width: 100%; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/quote.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,UAAU;EACV,2BCIgB;EDHhB,eAAe;EACf,sCCHmC;EDInC,gBAAgB;EAChB,cAAc;EACd,eAAe;EACf,gBAAgB;EAChB,YAAY,EACb","file":"quote.scss","sourcesContent":["@import '~base/variables';\n\n.quote {\n  bottom: 0;\n  color: $subtle-grey;\n  display: block;\n  font-family: $font-fixed;\n  font-size: 12px;\n  height: 120px;\n  margin: 0 auto;\n  position: fixed;\n  width: 100%;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".quote__quote___2lkUO {\n  color: rgba(0, 0, 0, 0.38);\n  display: block;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 12px;\n  height: 24vh;\n  margin: 0 auto;\n  max-width: 480px;\n  width: 100%; }\n\n.quote__quote-svg___1M_k9 {\n  width: 100%; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/quote.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,2BCKgB;EDJhB,eAAe;EACf,sCCFmC;EDGnC,gBAAgB;EAChB,aAAa;EACb,eAAe;EACf,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,YAAY,EACb","file":"quote.scss","sourcesContent":["@import '~base/variables';\n\n.quote {\n  color: $subtle-grey;\n  display: block;\n  font-family: $font-fixed;\n  font-size: 12px;\n  height: 24vh;\n  margin: 0 auto;\n  max-width: 480px;\n  width: 100%;\n}\n\n.quote-svg {\n  width: 100%;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
-		"quote": "quote__quote___2lkUO"
+		"quote": "quote__quote___2lkUO",
+		"quote-svg": "quote__quote-svg___1M_k9"
 	};
 
 /***/ },
@@ -50798,17 +50857,16 @@
 	
 	  var onBlur = function onBlur(e) {
 	    e.preventDefault();
-	    if (input) {
-	      // input.focus()
-	    }
 	  };
 	
 	  var onSubmit = function onSubmit(e) {
 	    e.preventDefault();
+	
 	    if (!input.value.trim()) {
 	      return;
 	    }
-	    dispatch((0, _messageActionCreators.sendMessage)(input.value));
+	
+	    dispatch((0, _messageActionCreators.sendMessage)(input.value), 'user');
 	    input.placeholder = '';
 	    input.value = '';
 	  };
@@ -50854,48 +50912,37 @@
 	
 	// todo: extract out commands logic
 	
-	function displayEric() {
-	  fetch('http://ericliu121187.com/json').then(function (promise) {
+	function displayEric(dispatch) {
+	  fetch('http://ericliu121187.com/json', {
+	    cache: 'no-cache',
+	    mode: 'cors'
+	  }).then(function (promise) {
 	    return promise.json().then(function (json) {
-	      console.log(json); // todo main display
+	      dispatch(addMessage(JSON.stringify(json, ' '), 'code')); // todo main display
 	    });
 	  });
-	}
-	
-	function handleCommand(cmd) {
-	  switch (cmd) {
-	    case 'eric':
-	      displayEric();
-	      break;
-	    case 'resume':
-	      // todo
-	      break;
-	  }
-	}
-	
-	// tood: write test
-	function isCommand(text) {
-	  // todo: better name? reserved word?
-	  var commands = ['eric', 'help', 'resume'];
-	
-	  return commands.includes(text);
 	}
 	
 	var sendMessage = function sendMessage(text) {
 	  return function (dispatch) {
 	    var stripped = text.toLowerCase().replace(/[^a-zA-Z]+/g, '');
 	
-	    dispatch(addMessage(text, true));
+	    dispatch(addMessage(text, 'user'));
 	
 	    if (stripped === 'help') {
 	
-	      dispatch(addMessage('Here\'s some help. Type in "eric"'), false); // todo: extract out canned responses
+	      // todo: extract out canned responses
+	      dispatch(addMessage('Unfortunately, I spent most of my time learning about NBA players...', 'h'));
+	      dispatch(addMessage('I\'m trying my best', 'h'));
+	      dispatch(addMessage('Here... Try typing in "eric"', 'h'));
 	      return;
 	    }
 	
-	    if (isCommand(stripped)) {
-	      handleCommand(stripped); // todo: extract
+	    if (stripped === 'eric') {
+	      displayEric(dispatch); // todo: extract
 	
+	      dispatch(addMessage('Ah, this is some info about Eric in JSON', 'h'));
+	      dispatch(addMessage('Feel free to click on the "-" and "+"', 'h'));
 	      return;
 	    }
 	
@@ -50916,7 +50963,7 @@
 	    fetch(req).then(function (promise) {
 	      return promise.json().then(function (body) {
 	        var apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.';
-	        dispatch(addMessage(apiaiText, false));
+	        dispatch(addMessage(apiaiText, 'h'));
 	      }).catch(function (error) {
 	        return console.error(error);
 	      } // todo: dispatch error!
@@ -50925,12 +50972,12 @@
 	  };
 	};
 	
-	var addMessage = function addMessage(text, fromUser) {
+	var addMessage = function addMessage(text, kind) {
 	  return {
 	    type: 'ADD_MESSAGE',
 	    id: nextMessageId++,
 	    text: text,
-	    fromUser: fromUser
+	    kind: kind
 	  };
 	};
 	
@@ -51026,45 +51073,303 @@
 	  value: true
 	});
 	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _reactCssModules = __webpack_require__(265);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _messagesList = __webpack_require__(304);
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _renderjson = __webpack_require__(304);
+	
+	var _renderjson2 = _interopRequireDefault(_renderjson);
+	
+	var _reactDom = __webpack_require__(124);
+	
+	var _messagesList = __webpack_require__(305);
 	
 	var _messagesList2 = _interopRequireDefault(_messagesList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var MessagesList = function MessagesList(_ref) {
-	  var messages = _ref.messages;
-	  return _react2.default.createElement(
-	    'ul',
-	    null,
-	    messages.map(function (message, i) {
-	      return _react2.default.createElement(
-	        'li',
-	        { key: i, styleName: message.fromUser ? 'message--from-user' : 'message' },
-	        message.text
-	      );
-	    })
-	  );
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MessagesList = function (_React$Component) {
+	  _inherits(MessagesList, _React$Component);
+	
+	  function MessagesList() {
+	    _classCallCheck(this, MessagesList);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MessagesList).apply(this, arguments));
+	  }
+	
+	  _createClass(MessagesList, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      var n = (0, _reactDom.findDOMNode)(this);
+	
+	      n.scrollTop = n.scrollHeight;
+	    }
+	  }, {
+	    key: 'appendRenderjsonOutput',
+	    value: function appendRenderjsonOutput(node, json) {
+	      node.appendChild(_renderjson2.default.set_icons('+', '-').set_show_to_level(2)(JSON.parse(json)));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'ul',
+	        { styleName: 'message-list' },
+	        this.props.messages.map(function (message, i) {
+	          return _react2.default.createElement(
+	            'li',
+	            {
+	              ref: function ref(node) {
+	                if (message.kind === 'code') {
+	                  _this2.appendRenderjsonOutput(node, message.text);
+	                }
+	              },
+	              key: i,
+	              styleName: message.kind
+	            },
+	            function () {
+	              switch (message.kind) {
+	                case 'code':
+	                  return;
+	                default:
+	                  return message.text;
+	              }
+	            }()
+	          );
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return MessagesList;
+	}(_react2.default.Component);
+	
+	MessagesList.propTypes = {
+	  messages: _react2.default.PropTypes.array
+	};
+	MessagesList.defaultProps = {
+	  messages: []
+	};
 	exports.default = (0, _reactCssModules2.default)(MessagesList, _messagesList2.default);
 
 /***/ },
 /* 304 */
+/***/ function(module, exports) {
+
+	// Copyright © 2013-2014 David Caldwell <david@porkrind.org>
+	//
+	// Permission to use, copy, modify, and/or distribute this software for any
+	// purpose with or without fee is hereby granted, provided that the above
+	// copyright notice and this permission notice appear in all copies.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+	// WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+	// MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+	// SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+	// WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+	// OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+	// CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+	
+	// Usage
+	// -----
+	// The module exports one entry point, the `renderjson()` function. It takes in
+	// the JSON you want to render as a single argument and returns an HTML
+	// element.
+	//
+	// Options
+	// -------
+	// renderjson.set_icons("+", "-")
+	//   This Allows you to override the disclosure icons.
+	//
+	// renderjson.set_show_to_level(level)
+	//   Pass the number of levels to expand when rendering. The default is 0, which
+	//   starts with everything collapsed. As a special case, if level is the string
+	//   "all" then it will start with everything expanded.
+	//
+	// renderjson.set_max_string_length(length)
+	//   Strings will be truncated and made expandable if they are longer than
+	//   `length`. As a special case, if `length` is the string "none" then
+	//   there will be no truncation. The default is "none".
+	//
+	// renderjson.set_sort_objects(sort_bool)
+	//   Sort objects by key (default: false)
+	//
+	// Theming
+	// -------
+	// The HTML output uses a number of classes so that you can theme it the way
+	// you'd like:
+	//     .disclosure    ("⊕", "⊖")
+	//     .syntax        (",", ":", "{", "}", "[", "]")
+	//     .string        (includes quotes)
+	//     .number
+	//     .boolean
+	//     .key           (object key)
+	//     .keyword       ("null", "undefined")
+	//     .object.syntax ("{", "}")
+	//     .array.syntax  ("[", "]")
+	
+	var module;
+	(module||{}).exports = renderjson = (function() {
+	    var themetext = function(/* [class, text]+ */) {
+	        var spans = [];
+	        while (arguments.length)
+	            spans.push(append(span(Array.prototype.shift.call(arguments)),
+	                              text(Array.prototype.shift.call(arguments))));
+	        return spans;
+	    };
+	    var append = function(/* el, ... */) {
+	        var el = Array.prototype.shift.call(arguments);
+	        for (var a=0; a<arguments.length; a++)
+	            if (arguments[a].constructor == Array)
+	                append.apply(this, [el].concat(arguments[a]));
+	            else
+	                el.appendChild(arguments[a]);
+	        return el;
+	    };
+	    var prepend = function(el, child) {
+	        el.insertBefore(child, el.firstChild);
+	        return el;
+	    }
+	    var isempty = function(obj) { for (var k in obj) if (obj.hasOwnProperty(k)) return false;
+	                                  return true; }
+	    var text = function(txt) { return document.createTextNode(txt) };
+	    var div = function() { return document.createElement("div") };
+	    var span = function(classname) { var s = document.createElement("span");
+	                                     if (classname) s.className = classname;
+	                                     return s; };
+	    var A = function A(txt, classname, callback) { var a = document.createElement("a");
+	                                                   if (classname) a.className = classname;
+	                                                   a.appendChild(text(txt));
+	                                                   a.href = '#';
+	                                                   a.onclick = function() { callback(); return false; };
+	                                                   return a; };
+	
+	    function _renderjson(json, indent, dont_indent, show_level, max_string, sort_objects) {
+	        var my_indent = dont_indent ? "" : indent;
+	
+	        var disclosure = function(open, placeholder, close, type, builder) {
+	            var content;
+	            var empty = span(type);
+	            var show = function() { if (!content) append(empty.parentNode,
+	                                                         content = prepend(builder(),
+	                                                                           A(renderjson.hide, "disclosure",
+	                                                                             function() { content.style.display="none";
+	                                                                                          empty.style.display="inline"; } )));
+	                                    content.style.display="inline";
+	                                    empty.style.display="none"; };
+	            append(empty,
+	                   A(renderjson.show, "disclosure", show),
+	                   themetext(type+ " syntax", open),
+	                   A(placeholder, null, show),
+	                   themetext(type+ " syntax", close));
+	
+	            var el = append(span(), text(my_indent.slice(0,-1)), empty);
+	            if (show_level > 0)
+	                show();
+	            return el;
+	        };
+	
+	        if (json === null) return themetext(null, my_indent, "keyword", "null");
+	        if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
+	
+	        if (typeof(json) == "string" && json.length > max_string)
+	            return disclosure('"', json.substr(0,max_string)+" ...", '"', "string", function () {
+	                return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
+	            });
+	
+	        if (typeof(json) != "object") // Strings, numbers and bools
+	            return themetext(null, my_indent, typeof(json), JSON.stringify(json));
+	
+	        if (json.constructor == Array) {
+	            if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
+	
+	            return disclosure("[", " ... ", "]", "array", function () {
+	                var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
+	                for (var i=0; i<json.length; i++)
+	                    append(as,
+	                           _renderjson(json[i], indent+"    ", false, show_level-1, max_string, sort_objects),
+	                           i != json.length-1 ? themetext("syntax", ",") : [],
+	                           text("\n"));
+	                append(as, themetext(null, indent, "array syntax", "]"));
+	                return as;
+	            });
+	        }
+	
+	        // object
+	        if (isempty(json))
+	            return themetext(null, my_indent, "object syntax", "{}");
+	
+	        return disclosure("{", "...", "}", "object", function () {
+	            var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
+	            for (var k in json) var last = k;
+	            var keys = Object.keys(json);
+	            if (sort_objects)
+	                keys = keys.sort();
+	            for (var i in keys) {
+	                var k = keys[i];
+	                append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
+	                       _renderjson(json[k], indent+"    ", true, show_level-1, max_string, sort_objects),
+	                       k != last ? themetext("syntax", ",") : [],
+	                       text("\n"));
+	            }
+	            append(os, themetext(null, indent, "object syntax", "}"));
+	            return os;
+	        });
+	    }
+	
+	    var renderjson = function renderjson(json)
+	    {
+	        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level, renderjson.max_string_length, renderjson.sort_objects));
+	        pre.className = "renderjson";
+	        return pre;
+	    }
+	    renderjson.set_icons = function(show, hide) { renderjson.show = show;
+	                                                  renderjson.hide = hide;
+	                                                  return renderjson; };
+	    renderjson.set_show_to_level = function(level) { renderjson.show_to_level = typeof level == "string" &&
+	                                                                                level.toLowerCase() === "all" ? Number.MAX_VALUE
+	                                                                                                              : level;
+	                                                     return renderjson; };
+	    renderjson.set_max_string_length = function(length) { renderjson.max_string_length = typeof length == "string" &&
+	                                                                                         length.toLowerCase() === "none" ? Number.MAX_VALUE
+	                                                                                                                         : length;
+	                                                          return renderjson; };
+	    renderjson.set_sort_objects = function(sort_bool) { renderjson.sort_objects = sort_bool;
+	                                                        return renderjson; };
+	    // Backwards compatiblity. Use set_show_to_level() for new code.
+	    renderjson.set_show_by_default = function(show) { renderjson.show_to_level = show ? Number.MAX_VALUE : 0;
+	                                                      return renderjson; };
+	    renderjson.set_icons('⊕', '⊖');
+	    renderjson.set_show_by_default(false);
+	    renderjson.set_sort_objects(false);
+	    renderjson.set_max_string_length("none");
+	    return renderjson;
+	})();
+
+
+/***/ },
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(305);
+	var content = __webpack_require__(306);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -51084,33 +51389,35 @@
 	}
 
 /***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(279)();
-	// imports
-	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
-	exports.i(__webpack_require__(306), undefined);
-	
-	// module
-	exports.push([module.id, ".messages-list__message___3JvSI {\n  color: rgba(0, 0, 0, 0.87);\n  text-align: left;\n  padding-right: 48px; }\n\n.messages-list__message--from-user___1QIex {\n  color: rgba(0, 0, 0, 0.54);\n  text-align: right;\n  padding-left: 48px; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU;EDDV,iBAAiB;EACjB,oBAAoB,EACrB;;AAED;EAEE,2BCJS;EDKT,kBAAkB;EAClB,mBAAmB,EACpB","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  composes: message from '../composers/message';\n  color: $black;\n  text-align: left;\n  padding-right: 48px;\n}\n\n.message--from-user {\n  composes: message from '../composers/message';\n  color: $grey;\n  text-align: right;\n  padding-left: 48px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
-	
-	// exports
-	exports.locals = {
-		"message": "messages-list__message___3JvSI " + __webpack_require__(306).locals["message"] + "",
-		"message--from-user": "messages-list__message--from-user___1QIex " + __webpack_require__(306).locals["message"] + ""
-	};
-
-/***/ },
 /* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
+	exports.i(__webpack_require__(307), undefined);
 	
 	// module
-	exports.push([module.id, ".message__message___2EutC {\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  width: 360px; }\n", "", {"version":3,"sources":["/./src/styles/composers/src/styles/composers/message.scss","/./src/styles/composers/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,qCCDoC;EDEpC,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,eAAe;EACf,aAAa,EACd","file":"message.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  max-width: 80%;\n  width: 360px;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".messages-list__code___2YQw6 {\n  color: rgba(0, 0, 0, 0.87);\n  font-family: \"Inconsolata\", monospace;\n  text-align: left; }\n  .messages-list__code___2YQw6 pre {\n    font-size: 12px;\n    white-space: prewrap; }\n    .messages-list__code___2YQw6 pre a {\n      color: rgba(0, 0, 0, 0.54);\n      text-decoration: none;\n      text-transform: uppercase; }\n\n.messages-list__h___1NPhi {\n  color: rgba(0, 0, 0, 0.87);\n  text-align: left; }\n\n.messages-list__message-list___3X407 {\n  height: 36vh;\n  margin: 0 auto;\n  max-width: 420px;\n  overflow: auto;\n  width: 100%; }\n\n.messages-list__user___1DP84 {\n  color: rgba(0, 0, 0, 0.54);\n  text-align: right; }\n\n@media (min-width: 600px) {\n  .messages-list__message-list___3X407 {\n    padding: 0 36px; } }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/messages-list.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EAEE,2BCEU;EDDV,sCCFmC;EDGnC,iBAAiB,EAYlB;EAhBD;IAOI,gBAAgB;IAChB,qBAAqB,EAOtB;IAfH;MAWM,2BCNK;MDOL,sBAAsB;MACtB,0BAA0B,EAC3B;;AAIL;EAEE,2BChBU;EDiBV,iBAAiB,EAClB;;AAED;EACE,aAAa;EACb,eAAe;EACf,iBAAiB;EACjB,eAAe;EACf,YAAY,EACb;;AAED;EAEE,2BC7BS;ED8BT,kBAAkB,EACnB;;AAED;EAEA;IACE,gBAAgB,EACjB,EAAA","file":"messages-list.scss","sourcesContent":["@import '~base/variables';\n\n.code {\n  composes: message from '../composers/message';\n  color: $black;\n  font-family: $font-fixed;\n  text-align: left;\n\n  pre {\n    font-size: 12px;\n    white-space: prewrap;\n\n    a {\n      color: $grey;\n      text-decoration: none;\n      text-transform: uppercase;\n    }\n  }\n}\n\n.h {\n  composes: message from '../composers/message';\n  color: $black;\n  text-align: left;\n}\n\n.message-list {\n  height: 36vh;\n  margin: 0 auto;\n  max-width: 420px;\n  overflow: auto;\n  width: 100%;\n}\n\n.user {\n  composes: message from '../composers/message';\n  color: $grey;\n  text-align: right;\n}\n\n@media (min-width: 600px) {\n\n.message-list {\n  padding: 0 36px;\n}\n\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"code": "messages-list__code___2YQw6 " + __webpack_require__(307).locals["message"] + "",
+		"h": "messages-list__h___1NPhi " + __webpack_require__(307).locals["message"] + "",
+		"message-list": "messages-list__message-list___3X407",
+		"user": "messages-list__user___1DP84 " + __webpack_require__(307).locals["message"] + ""
+	};
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
+	
+	// module
+	exports.push([module.id, ".message__message___2EutC {\n  font-family: \"Assistant\", sans-serif;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  width: 88%; }\n", "", {"version":3,"sources":["/./src/styles/composers/src/styles/composers/message.scss","/./src/styles/composers/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,qCCDoC;EDEpC,gBAAgB;EAChB,iBAAiB;EACjB,wBAAwB;EACxB,WAAW,EACZ","file":"message.scss","sourcesContent":["@import '~base/variables';\n\n.message {\n  font-family: $font-default;\n  font-size: 14px;\n  font-weight: 400;\n  margin: 0 auto 4px auto;\n  width: 88%;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
@@ -51118,13 +51425,13 @@
 	};
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(308);
+	var content = __webpack_require__(309);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {"sourceMap":true});
@@ -51144,7 +51451,7 @@
 	}
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
@@ -51152,11 +51459,12 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700);", ""]);
 	
 	// module
-	exports.push([module.id, ".home__title___26Hpx {\n  color: rgba(0, 0, 0, 0.38);\n  font-size: 12px;\n  font-weight: 400;\n  margin: 24px 0;\n  text-align: center; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/home.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,2BCKgB;EDJhB,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,mBAAmB,EACpB","file":"home.scss","sourcesContent":["@import '~base/variables';\n\n.title {\n  color: $subtle-grey;\n  font-size: 12px;\n  font-weight: 400;\n  margin: 24px 0;\n  text-align: center;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".home__title___26Hpx {\n  color: rgba(0, 0, 0, 0.38);\n  font-size: 12px;\n  font-weight: 400;\n  margin: 12px 0 0 0;\n  text-align: center; }\n\n.home__a___gNdeP {\n  color: rgba(0, 0, 0, 0.38);\n  display: block;\n  font-size: 12px;\n  margin: 2px auto 24px auto;\n  text-align: center;\n  text-decoration: none;\n  text-transform: uppercase; }\n", "", {"version":3,"sources":["/./src/styles/modules/src/styles/modules/home.scss","/./src/styles/modules/src/styles/base/variables.scss"],"names":[],"mappings":"AAEA;EACE,2BCKgB;EDJhB,gBAAgB;EAChB,iBAAiB;EACjB,mBAAmB;EACnB,mBAAmB,EACpB;;AAED;EACE,2BCHgB;EDIhB,eAAe;EACf,gBAAgB;EAChB,2BAA2B;EAC3B,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B,EAC3B","file":"home.scss","sourcesContent":["@import '~base/variables';\n\n.title {\n  color: $subtle-grey;\n  font-size: 12px;\n  font-weight: 400;\n  margin: 12px 0 0 0;\n  text-align: center;\n}\n\n.a {\n  color: $subtle-grey;\n  display: block;\n  font-size: 12px;\n  margin: 2px auto 24px auto;\n  text-align: center;\n  text-decoration: none;\n  text-transform: uppercase;\n}\n","@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400|Inconsolata:400,700');\n\n$font-default: 'Assistant', sans-serif;\n$font-fixed: 'Inconsolata', monospace;\n$font-h: 'Assistant', sans-serif;\n\n$black: rgba(0, 0, 0, 0.87);\n$grey: rgba(0, 0, 0, 0.54);\n$subtle-grey: rgba(0, 0, 0, 0.38);\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
-		"title": "home__title___26Hpx"
+		"title": "home__title___26Hpx",
+		"a": "home__a___gNdeP"
 	};
 
 /***/ }

@@ -5,7 +5,11 @@ let nextMessageId = 1 // initial state starts at one
 // todo: extract out commands logic
 
 function displayEric(dispatch) {
-  fetch('http://ericliu121187.com/json').then(
+  fetch('http://ericliu121187.com/json', {
+      cache: 'no-cache',
+      mode: 'cors'
+    }
+  ).then(
     promise => promise.json().then(
       json => {
         dispatch(addMessage(JSON.stringify(json, ' '), 'code')) // todo main display
