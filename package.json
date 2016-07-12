@@ -34,6 +34,7 @@
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
+    "renderjson": "^1.2.0",
     "sass-loader": "^4.0.0",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.1",

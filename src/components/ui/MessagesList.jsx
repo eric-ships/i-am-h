@@ -1,5 +1,6 @@
 import CSSModules from 'react-css-modules'
 import React from 'react'
+import Renderjson from 'renderjson'
 import { findDOMNode } from 'react-dom'
 
 import styles from 'modules/messages-list'
@@ -15,15 +16,44 @@ class MessagesList extends React.Component {
 
   componentDidUpdate() {
     const n = findDOMNode(this)
+
     n.scrollTop = n.scrollHeight
+
+    this.props.messages.forEach((message, i) => {
+      if (message.kind === 'code') {
+        this.appendRenderjsonOutput(i)
+      }
+    })
+  }
+
+  appendRenderjsonOutput(node, json) {
+    node.appendChild(
+      Renderjson.set_icons('+', '-')
+                .set_show_to_level(2)(JSON.parse(json))
+    )
   }
 
   render() {
     return (
       <ul styleName='message-list'>
         {this.props.messages.map((message, i) =>
-          <li key={i} styleName={message.fromUser ? 'message--from-user' : 'message'}>
-            {message.text}
+          <li
+            ref={node => {
+              if (message.kind === 'code') {
+                this.appendRenderjsonOutput(node, message.text)
+              }
+            }}
+            key={i}
+            styleName={message.kind}
+          >
+            {(() => {
+              switch (message.kind) {
+                case 'code':
+                  return
+                default:
+                  return message.text
+              }
+            })()}
           </li>
         )}
       </ul>

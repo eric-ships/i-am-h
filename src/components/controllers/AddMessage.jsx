@@ -11,17 +11,16 @@ let AddMessage = ({ dispatch }) => {
 
   const onBlur = (e) => {
     e.preventDefault()
-    if (input) {
-      // input.focus()
-    }
   }
 
   const onSubmit = (e) => {
     e.preventDefault()
+
     if (!input.value.trim()) {
       return
     }
-    dispatch(sendMessage(input.value))
+
+    dispatch(sendMessage(input.value), 'user')
     input.placeholder = ''
     input.value = ''
   }
