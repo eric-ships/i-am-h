@@ -1,6 +1,6 @@
 #I am H
 
-[i-am-h.com](i-am-h.com)
+[i-am-h.com](http://i-am-h.com)
 
 ## Usage
 
