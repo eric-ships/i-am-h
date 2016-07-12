@@ -4,49 +4,36 @@ let nextMessageId = 1 // initial state starts at one
 
 // todo: extract out commands logic
 
-function displayEric() {
+function displayEric(dispatch) {
   fetch('http://ericliu121187.com/json').then(
     promise => promise.json().then(
       json => {
-        console.log(json) // todo main display
+        dispatch(addMessage(JSON.stringify(json, ' '), 'code')) // todo main display
       }
     )
   )
-}
-
-function handleCommand(cmd) {
-  switch (cmd) {
-    case 'eric':
-      displayEric()
-      break
-    case 'resume':
-      // todo
-      break
-  }
-}
-
-// tood: write test
-function isCommand(text) { // todo: better name? reserved word?
-  const commands = ['eric', 'help', 'resume']
-
-  return commands.includes(text)
 }
 
 const sendMessage = (text) => {
   return function(dispatch) {
     const stripped = text.toLowerCase().replace(/[^a-zA-Z]+/g, '')
 
-    dispatch(addMessage(text, true))
+    dispatch(addMessage(text, 'user'))
 
     if (stripped === 'help') {
 
-      dispatch(addMessage('Here\'s some help. Type in "eric"'), false) // todo: extract out canned responses
+      // todo: extract out canned responses
+      dispatch(addMessage('Unfortunately, I spent most of my time learning about NBA players...', 'h'))
+      dispatch(addMessage('I\'m trying my best', 'h'))
+      dispatch(addMessage('Here... Try typing in "eric"', 'h'))
       return
     }
 
-    if (isCommand(stripped)) {
-      handleCommand(stripped) // todo: extract
+    if (stripped === 'eric') {
+      displayEric(dispatch) // todo: extract
 
+      dispatch(addMessage('Ah, this is some info about Eric in JSON', 'h'))
+      dispatch(addMessage('Feel free to click on the "-" and "+"', 'h'))
       return
     }
 
@@ -69,7 +56,7 @@ const sendMessage = (text) => {
       .then(
         body => {
           let apiaiText = body.result.fulfillment.speech || 'Sorry, I am too young to understand.'
-          dispatch(addMessage(apiaiText, false))
+          dispatch(addMessage(apiaiText, 'h'))
         }
       ).catch(
         error => console.error(error) // todo: dispatch error!
@@ -78,12 +65,12 @@ const sendMessage = (text) => {
   }
 }
 
-const addMessage = (text, fromUser) => {
+const addMessage = (text, kind) => {
   return {
     type: 'ADD_MESSAGE',
     id: nextMessageId++,
     text,
-    fromUser
+    kind
   }
 }
 
