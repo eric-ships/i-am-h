@@ -41,6 +41,7 @@ Other versions are untested at this time, let me know issues or bugs.
 ###### Production
 
 * [Babel](https://babeljs.io/)
+* [D3](https://d3js.org)
 * [ES7](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
 * [React-CSS-Modules](https://github.com/gajus/react-css-modules)
 * [React-Redux-Router](https://github.com/reactjs/react-router-redux)
