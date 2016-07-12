@@ -14,6 +14,7 @@ class Home extends React.Component {
         <h1 styleName='title'>
           I am H, created by Eric Liu
         </h1>
+        <a href="https://github.com/ericliu121187/i-am-h" styleName='a'>github</a>
         <Messages />
         <AddMessage />
         <QuotesOnDesign />
