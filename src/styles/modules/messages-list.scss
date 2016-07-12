@@ -1,8 +1,8 @@
 @import '~base/variables';
 
 .message-list {
+  height: 36vh;
   margin: 0 auto;
-  max-height: 48vh;
   max-width: 420px;
   overflow: scroll;
   width: 100%;

@@ -1,13 +1,16 @@
 @import '~base/variables';
 
 .quote {
-  bottom: 0;
   color: $subtle-grey;
   display: block;
   font-family: $font-fixed;
   font-size: 12px;
-  height: 120px;
+  height: 24vh;
   margin: 0 auto;
-  position: fixed;
+  max-width: 480px;
+  width: 100%;
+}
+
+.quote-svg {
   width: 100%;
 }

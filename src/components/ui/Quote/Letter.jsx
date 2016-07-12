@@ -5,6 +5,12 @@ import { easeCubicInOut } from 'd3-ease'
 import { transition } from 'd3-transition'
 
 class Letter extends Component {
+  static propTypes = {
+    d: React.PropTypes.string.isRequired,
+    lineX: React.PropTypes.number.isRequired,
+    lineY: React.PropTypes.number.isRequired
+  };
+
   state = {
     y: -60,
     x: 0,
@@ -17,21 +23,21 @@ class Letter extends Component {
                  .ease(easeCubicInOut)
 
   componentWillEnter(callback) {
-    let node = select(ReactDOM.findDOMNode(this))
+    const node = select(ReactDOM.findDOMNode(this))
 
-    this.setState({ x: this.props.i * 8 })
+    this.setState({ x: this.props.lineX * 8 })
 
     node.transition(this.transition)
-        .attr('y', 0)
+        .attr('y', this.props.lineY * 14)
         .style('fill-opacity', 0.38)
         .on('end', () => {
-          this.setState({ y: 0, fillOpacity: 0.38 })
+          this.setState({ y: this.props.lineY * 14, fillOpacity: 0.38 })
           callback()
         })
   }
 
   componentWillLeave(callback) {
-    let node = select(ReactDOM.findDOMNode(this))
+    const node = select(ReactDOM.findDOMNode(this))
 
     this.setState({ className: 'exit' })
 
@@ -45,16 +51,15 @@ class Letter extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.i != nextProps.i) {
-      if (this.props.i != nextProps.i) {
-        let node = select(ReactDOM.findDOMNode(this))
+    if (this.props.lineX !== nextProps.lineX || this.props.lineY !== nextProps.lineY) {
+      const node = select(ReactDOM.findDOMNode(this))
 
-        this.setState({ className: 'update' })
+      this.setState({ className: 'update' })
 
-        node.transition(this.transition)
-            .attr('x', nextProps.i * 8)
-            .on('end', () => this.setState({ x: nextProps.i * 8 }))
-      }
+      node.transition(this.transition)
+          .attr('x', nextProps.lineX * 8)
+          .attr('y', nextProps.lineY * 14)
+          .on('end', () => this.setState({ x: nextProps.lineX * 8, y: nextProps.lineY * 14 }))
     }
   }
 
