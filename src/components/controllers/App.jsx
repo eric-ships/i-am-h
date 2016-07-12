@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import Page from 'ui/page'
+import Page from 'ui/Page'
 
 const mapStateToProps = () => {
   return {}

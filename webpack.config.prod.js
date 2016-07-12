@@ -35,9 +35,9 @@ module.exports = {
       composers: 'styles/composers',
       controllers: 'components/controllers',
       modules: 'styles/modules',
-      ui: 'components/ui',
+      ui: 'components/ui'
     },
     extensions: ['', '.js', '.jsx', '.scss'],
-    root: path.join(__dirname, 'src')
+    root: path.resolve(__dirname, 'src')
   }
 }
