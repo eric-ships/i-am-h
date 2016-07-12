@@ -4,7 +4,7 @@ import { IndexRoute, Route, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 
-import App from 'controllers/App'
+import App from 'controllers/App.jsx'
 import Home from 'ui/Home'
 
 const router = (
