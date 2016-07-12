@@ -5,7 +5,7 @@ var path = require('path');
 var app = express();
 var port = process.env.PORT || 8080;
 
-app.use(favicon(path.join(__dirname, 'static','images','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'static','images','favicon.png')));
 
 app.use(express.static(path.join(__dirname)));
 
