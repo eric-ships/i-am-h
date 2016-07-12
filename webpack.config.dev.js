@@ -34,11 +34,11 @@ module.exports = {
   },
   resolve: {
     alias: {
-      base: path.join(__dirname, '/src/styles/base'),
-      composers: path.join(__dirname, '/src/styles/composers'),
-      controllers: path.join(__dirname, '/src/components/controllers'),
-      modules: path.join(__dirname, '/src/styles/modules'),
-      ui: path.join(__dirname, '/src/components/ui')
+      base: path.join(__dirname, 'src/styles/base'),
+      composers: path.join(__dirname, 'src/styles/composers'),
+      controllers: path.join(__dirname, 'src/components/controllers'),
+      modules: path.join(__dirname, 'src/styles/modules'),
+      ui: path.join(__dirname, 'src/components/ui')
     },
     extensions: ['', '.js', '.jsx', '.scss'],
     root: path.join(__dirname, 'src')
