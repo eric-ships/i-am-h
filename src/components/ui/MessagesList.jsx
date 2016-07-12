@@ -18,12 +18,6 @@ class MessagesList extends React.Component {
     const n = findDOMNode(this)
 
     n.scrollTop = n.scrollHeight
-
-    this.props.messages.forEach((message, i) => {
-      if (message.kind === 'code') {
-        this.appendRenderjsonOutput(i)
-      }
-    })
   }
 
   appendRenderjsonOutput(node, json) {
