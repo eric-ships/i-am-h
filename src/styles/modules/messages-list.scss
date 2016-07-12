@@ -1,20 +1,38 @@
 @import '~base/variables';
 
-.message-list {
-  height: 36vh;
-  margin: 0 auto;
-  max-width: 420px;
-  overflow: scroll;
-  width: 100%;
+.code {
+  composes: message from '../composers/message';
+  color: $black;
+  font-family: $font-fixed;
+  text-align: left;
+
+  pre {
+    font-size: 12px;
+    white-space: prewrap;
+
+    a {
+      color: $grey;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
 }
 
-.message {
+.h {
   composes: message from '../composers/message';
   color: $black;
   text-align: left;
 }
 
-.message--from-user {
+.message-list {
+  height: 36vh;
+  margin: 0 auto;
+  max-width: 420px;
+  overflow: auto;
+  width: 100%;
+}
+
+.user {
   composes: message from '../composers/message';
   color: $grey;
   text-align: right;
