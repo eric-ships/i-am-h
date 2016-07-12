@@ -38,6 +38,6 @@ module.exports = {
       ui: 'components/ui'
     },
     extensions: ['', '.js', '.jsx', '.scss'],
-    root: path.join(__dirname, 'src')
+    root: path.resolve('src')
   }
 }
