@@ -21,10 +21,12 @@ class MessagesList extends React.Component {
   }
 
   appendRenderjsonOutput(node, json) {
-    node.appendChild(
-      Renderjson.set_icons('+', '-')
-                .set_show_to_level(2)(JSON.parse(json))
-    )
+    if (node) {
+      node.appendChild(
+        Renderjson.set_icons('+', '-')
+                  .set_show_to_level(2)(JSON.parse(json))
+      )
+    }
   }
 
   render() {
