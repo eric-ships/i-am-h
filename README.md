@@ -1,4 +1,8 @@
-#I am H
+> Because of using Fetch API and CORS issues, sometimes a hard refresh or two
+> is needed on the desktop version. Unfortunately, right now, due to the
+> limitations of the aforementioned, I don't support mobile devices.
+
+# I am H
 
 [i-am-h.com](http://i-am-h.com)
 
