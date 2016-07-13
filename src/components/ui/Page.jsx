@@ -21,7 +21,13 @@ class Page extends React.Component {
       propsTransferred = Object.assign({}, this.props, { styles: undefined })
       n = React.cloneElement(this.props.children, propsTransferred)
     } else {
-      n = <div>I am H, and I don't currently work on mobile right now, because it utilizes Fetch API. Check it out on desktop!</div>
+      n =
+        <div>
+          <br />
+          I am H, and I don't currently work on mobile right now, because it utilizes Fetch API. Check it out on desktop!
+          <br />
+          Find me on <a href="https://github.com/ericliu121187/i-am-h">Github</a>.
+        </div>
     }
 
     return (
