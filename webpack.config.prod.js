@@ -10,7 +10,10 @@ module.exports = {
     publicPath: '/dist/'
   },
   plugins: [
-    // add plugins for prod
+    new webpack.ProvidePlugin({
+        'Promise': 'es6-promise',
+        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
   ],
   module: {
     loaders: [
